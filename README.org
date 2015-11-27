@@ -1,0 +1,21 @@
+* usage
+#+BEGIN_EXAMPLE
+git clone https://github.com/xorgnak/nomadic.git
+cd nomadic
+./install <username> [--gui]
+#+END_EXAMPLE
+  This project is designed to install *actual* tools for _actual_ work, generate helpful defaults for users, and create an administrative user.  The above commands will add the tools and files below to a standard debian based distribution (Debian, *Ubuntu*, Mint, etc.) installation.
+
+** standard installation
+  The standard installation will:
+- install emacs and vim
+- install the ruby language
+- create default dot-files collection
+- create an administrative user
+- set the hostname and domainname.
+
+** graphical installation
+  Adding the '--gui' flag will do the following:
+- configure and compile a lightweight window manager.
+- configure a graphical user session accessible after login.
+- install graphical applications.
