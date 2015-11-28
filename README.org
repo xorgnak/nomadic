@@ -5,7 +5,8 @@ git clone https://github.com/xorgnak/nomadic.git
 cd nomadic
 ./install <username> [--gui]
 #+END_EXAMPLE
-  This project is designed to install *actual* tools for _actual_ work, generate helpful defaults for users, and create an administrative user.  The above commands will add the tools and files below to a standard debian based distribution (Debian, *Ubuntu*, Mint, etc.) installation.
+  This project is designed to install *actual* tools for _actual_ work, generate helpful defaults for users, and create an administrative user with sudo privledges.  The above commands will add the tools and files below to a standard debian based distribution (Debian, *Ubuntu*, Mint, etc.) installation.
+  Nomadic is designed to get developers working as fast as possible.  It is not meant to be user friendly (read the faq below).
 
 ** standard installation
   The standard installation will:
@@ -20,3 +21,42 @@ cd nomadic
 - configure and compile a lightweight window manager.
 - configure a graphical user session accessible after login.
 - install graphical applications.
+
+
+* features [0%]
+- [ ] standard developer tools
+  - vim
+  - emacs
+  - make
+  - gcc
+  - screen
+  - git
+- [ ] cutting edge hosting stack
+  - rack
+  - redis
+  - inotify-tools
+- [ ] nomadic enhancments
+  - camp
+  - gluon integration
+  - git integrated shell
+  - screen configuration
+- [ ] optional graphical desktop
+  - terminal focused
+  - lightweight and fast
+  - chrome browser
+  - vlc
+ 
+* frequently asked questions
+
+** What is linux?
+   Linux is the freely distributed, open source kernel (part that makes it all work) originally authored by Linus Torvalds.  It is frequently distributed with the GNU tools, open source collections of utilities which together form a usable operating system.  A kernel and a collection of tools, along with a set of customizations and configurations makes up a Linux distribution.  Nomadic Linux aims to be a distribution in the sense that it customizes an existing linux distribution (Debian) and focuses on developer productivity and reliability of infrastructure.
+
+** Why don't you package this as an iso image?
+   We do.  In fact, we package this as an .iso image, as an embedded .zip and as a compressed image.  Those images are generally built for specific purposes and are distrubuted as torrents.  We encourage our users to package their customizations and release their own extension scripts.  Because of the many ways nomadic linux is used, we have found that distributing an installer script makes more sense.
+
+** Why would I want to use this instead of Ubuntu?
+   We do different jobs.  Primarily, nomadic linux is a server distribution.  A Nomadic Linux installation can be activly delivering content as soon as it's installed.  Ubuntu's server installation is generic.  It needs to be to accomodate the needs of many hosting paradigms.  We regularly add nomadic to Ubuntu, and it works just as well.
+
+** Why is your interface ugly?
+   It's not supposed to be pretty.  We choose dwm as our standard window manager because it is extremely small and fast.  It provides just enough window managment to get the job done - and no more.  Rather than using the familiar menu system of program launching, dwm uses dmenu.  It's also extremely small and fast.  Rather than having a desktop with icons, we choose to just have a nice desktop picture and put our work at the center of our attention.  To accomodate "average user" usage, we also include the chrome browser and vlc, the media swiss army knife.
+

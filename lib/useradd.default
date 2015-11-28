@@ -1,0 +1,4 @@
+# nomadic defaults for useradd
+SHELL=/bin/bash
+INACTIVE=30
+

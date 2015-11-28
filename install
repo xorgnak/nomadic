@@ -59,22 +59,16 @@ defscrollback 1024
 startup_message off
 hardstatus on
 hardstatus alwayslastline
-screen -t emacs 9 emacs -nw --funcall erc
-# screen -t '>' 0 gluon --client
+screen -t emacs emacs -nw --funcall erc
 EOF
 
-
-#############################
 #apt-get -y install $DEBS $G
 #gem install $GEMS
-#############################
 if [[ $2 == '--gui' ]]; then
     echo 'startx' >> $SKEL/.profile
-    #    git clone git://git.suckless.org/dwm
-    mkdir dwm
-    cp lib/dwm.config.h dwm/config.h
-    cp lib/gui.sh dwm/
-    cp lib/nomadic_wallpaper.jpg dwm/
+#    git clone git://git.suckless.org/dwm
+    cp gui.sh dwm/
+    cp nomadic_wallpaper.jpg dwm/
     cd dwm
     ./gui.sh
 fi
