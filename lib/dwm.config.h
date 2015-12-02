@@ -1,3 +1,4 @@
+
 /* See LICENSE file for copyright and license details. */
 /* appearance */
 static const char *fonts[] = {
@@ -15,7 +16,7 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 /* tagging */
-static const char *tags[] = { "SHELL", "2", "3", "4", "5", "MEDIA", "7", "BT", "WWW" };
+static const char *tags[] = { ">", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -28,6 +29,7 @@ static const Rule rules[] = {
 	{ "Vlc",  NULL,       NULL,       1 << 5,       0,           -1 },
 	{ "Blueman-manager",  NULL,       NULL,       1 << 7,       0,           -1 },
 	{ "XTerm",  NULL,       NULL,       1,       0,           -1 },
+	{ "Conky", NULL, NULL, 0, 1, -1}
 };
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
