@@ -1,12 +1,11 @@
 #!/bin/bash
 
-DEV='emacs emacs-goodies-el vim ruby-full build-essential'
-SYS='inotify-tools screen redis-server openssh-server '
-SEC='nmap netcat sudo'
+DEV='emacs emacs-goodies-el vim ruby-full'
+SYS='inotify-tools screen redis-server openssh-server'
 GEMS="pry sinatra redis-objects cinch thin"
 
 USERNAME=$1
-DEBS="$DEV $SYS $SEC"
+DEBS="$DEV $SYS"
 SKEL=/etc/skel
 DEFAULTS=/etc/defaults
 
@@ -59,23 +58,23 @@ defscrollback 1024
 startup_message off
 hardstatus on
 hardstatus alwayslastline
-screen -t emacs 9 emacs -nw --funcall erc
-# screen -t '>' 0 gluon --client
+screen -t emacs 0 emacs -nw --visit ~/index.org
 EOF
 
+cat << EOF > $SKEL/index.org
+ 
+EOF
 
 #############################
-#apt-get -y install $DEBS $G
-#gem install $GEMS
+apt-get -y install $DEBS
+gem install $GEMS
 #############################
 if [[ $2 == '--gui' ]]; then
     echo 'startx' >> $SKEL/.profile
-    #    git clone git://git.suckless.org/dwm
-    mkdir dwm
+    git clone git://git.suckless.org/dwm
     cp lib/dwm.config.h dwm/config.h
     cp lib/gui.sh dwm/
     cp lib/nomadic_wallpaper.jpg dwm/
-    cd dwm
     ./gui.sh
 fi
 

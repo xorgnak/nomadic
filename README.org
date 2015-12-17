@@ -12,9 +12,7 @@ cd nomadic
   The standard installation will:
 - install emacs and vim
 - install the ruby language
-- create default dot-files collection
-- create an administrative user
-- set the hostname and domainname.
+- create default dot-files collection.
 
 ** graphical installation
   Adding the '--gui' flag will do the following:
@@ -22,25 +20,24 @@ cd nomadic
 - configure a graphical user session accessible after login.
 - install graphical applications.
 
-
-* features [0%]
-- [ ] standard developer tools
+* features [100%]
+- [X] standard developer tools
   - vim
   - emacs
   - make
   - gcc
   - screen
   - git
-- [ ] cutting edge hosting stack
+- [X] cutting edge hosting stack
   - rack
   - redis
   - inotify-tools
-- [ ] nomadic enhancments
+- [X] nomadic enhancments
   - camp
   - gluon integration
   - git integrated shell
   - screen configuration
-- [ ] optional graphical desktop
+- [X] optional graphical desktop
   - terminal focused
   - lightweight and fast
   - chrome browser

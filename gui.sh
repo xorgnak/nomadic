@@ -3,22 +3,19 @@
 # NOMADIC GUI
 
 # install dependancies.
-#apt-get install libxft-dev libxinerama-dev suckless-tools xterm chromium vlc xinit xorg alsa-base alsa-utils
+apt-get install libxft-dev libxinerama-dev suckless-tools xterm chromium vlc xinit xorg alsa-base alsa-utils
 
 # create shared library directory
 mkdir -p /var/lib/nomadic
-
-# install stock wallpaper.
-cp -f nomadic_wallpaper.jpg /var/lib/nomadic/wallpaper.jpg
-
 # install stock .xinitrc file.
 # changed:
 #  status: ip, battery, temp, time0, time1
 #  autostart: background, terminal, bluetooth, browser
 #  xterm: colors, keymap
+
 cat << EOF > /etc/skel/.xinitrc
 #!/bin/bash
-xrdb -merge $HOME/.Xresources
+xrdb -merge ~/.Xresources
 xmodmap ~/.Xmodmap
 hash feh && feh --bg-max /var/lib/nomadic/wallpaper.jpg
 hash xterm && xterm -e 'screen' &
@@ -35,14 +32,6 @@ do
 done &
 exec dwm
 EOF
-
-# generate config.h file.
-# changed:
-#  colors: ff7c00 (main) 000000 (base)
-#  term: xterm
-#  keys: MODKEY=Win
-#  dmenu: keys (Win+Tab), location, prompt.
-
 
 # build custom dwm and install.
 make install
