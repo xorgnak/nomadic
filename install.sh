@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DEV='emacs emacs-goodies-el vim ruby-full'
-SYS='inotify-tools screen redis-server openssh-server'
+SYS='inotify-tools screen redis-server openssh-server tor'
 GEMS="pry sinatra redis-objects cinch thin"
 
 USERNAME=$1
@@ -62,7 +62,17 @@ screen -t emacs 0 emacs -nw --visit ~/index.org
 EOF
 
 cat << EOF > $SKEL/index.org
- 
+This will contain the initial help text for nomadic linux. 
+EOF
+
+cat <<EOF >> /etc/tor/torrc
+# Nomadic services
+HiddenServiceDir /var/lib/tor/http/
+HiddenServicePort 80 127.0.0.1:4567
+HiddenServiceDir /var/lib/tor/irc/
+HiddenServicePort 6667 127.0.0.1:6667
+HiddenServiceDir /var/lib/tor/ssh/
+HiddenServicePort 22 127.0.0.1:22
 EOF
 
 #############################
