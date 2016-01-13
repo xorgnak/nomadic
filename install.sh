@@ -11,7 +11,7 @@ DEFAULTS=/etc/defaults
 
 
 if [[ $1 == '' ]]; then
-    echo "usage: [sudo] ./nomadic.sh <username> [--gui]"
+    echo "usage: sudo ./nomadic.sh <username>"
     exit
 fi
 
@@ -62,7 +62,8 @@ screen -t emacs 0 emacs -nw --visit ~/index.org
 EOF
 
 cat << EOF > $SKEL/index.org
-This will contain the initial help text for nomadic linux. 
+#+TITLE: $USERNAME's notes.
+#+TODO: TODO(t!/@) STAGE1(1!/@) STAGE2(2!/@) STAGE3(3!/@) STAGE4(4!/@) | FUNDED(f!/@) DEFUNDED(d!/@) DELEGATED(D!/@) DONE(X!/@)
 EOF
 
 cat <<EOF >> /etc/tor/torrc
@@ -79,14 +80,6 @@ EOF
 apt-get -y install $DEBS
 gem install $GEMS
 #############################
-if [[ $2 == '--gui' ]]; then
-    echo 'startx' >> $SKEL/.profile
-    git clone git://git.suckless.org/dwm
-    cp lib/dwm.config.h dwm/config.h
-    cp lib/gui.sh dwm/
-    cp lib/nomadic_wallpaper.jpg dwm/
-    ./gui.sh
-fi
 
 userdel $USERNAME
 rm -fR /home/$USERNAME
