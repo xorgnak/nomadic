@@ -15,19 +15,6 @@ cat << EOF > ~/index.org
 #+TODO: TODO(t!/@) STAGE1(1!/@) STAGE2(2!/@) STAGE3(3!/@) STAGE4(4!/@) | FUNDED(f!/@) DEFUNDED(d!/@) DELEGATED(D!/@) DONE(X!/@)
 EOF
 
-#cd ~/
-#git clone https://github.com/xorgnak/leah.git
-#cd leah
-#sudo ./install.sh
-
-#cd ~/
-#git clone https://github.com/xorgnak/clerk.git
-#cd clerk
-#sudo ./install.sh
-
-cd ~/
-git clone https://github.com/xorgnak/gluon.git
-
 if [[ $1 == '--reset' ]]; then
     rm -fR ~/*
     rm -fR ~/.*
