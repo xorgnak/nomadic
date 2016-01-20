@@ -3,55 +3,47 @@
 DEV='emacs emacs-goodies-el vim ruby-full'
 SYS='inotify-tools screen redis-server openssh-server tor'
 GEMS="pry sinatra redis-objects cinch thin"
-
-USERNAME=$1
 DEBS="$DEV $SYS"
-SKEL=/etc/skel
-DEFAULTS=/etc/defaults
 
-
-if [[ $1 == '' ]]; then
-    echo "usage: sudo ./nomadic.sh <username>"
-    exit
-fi
-
+function nomadic_login_logo() {
 i=/etc/issue
-echo -e "   .#@@@@@@@@@@@@@@@@@@@@@@@@#." > $i
-echo -e "     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" >> $i
-echo -e "      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" >> $i
-echo -e "      .@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@." >> $i
-echo -e "      #@@@@@@@@@@@ NOMADIC @@@@@@@@@@@@#" >> $i
-echo -e "      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" >> $i
-echo -e "      @@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@@" >> $i
-echo -e "      @@@@@@@@    @@@@@@@@@@@@@@@@@@@@@@" >> $i
-echo -e "      @@@@@@@@    @@@@@@@@  +@@@@@@@@@@@" >> $i
-echo -e "      @@@@@@@@@  @@  @@@@    @@@@@@@@@@@" >> $i
-echo -e "      @@@@@@@@@@   ; +@@@    @@@@@@@@@@@" >> $i
-echo -e "      @@@@@@@@@+   .  @@@@  ;@  @@@@@@@@" >> $i
-echo -e "      @@@@@@@@@     + +@@@@      @@@@@@@" >> $i
-echo -e "      @@@@@@@@@        @@@@      @@@@@@@" >> $i
-echo -e "      @@@@@@@@@      @@@@@;    # ;@@@@@@" >> $i
-echo -e "      @@@@@@@:  +     @@@@       @@@@@@@" >> $i
-echo -e "      @@@@@@   #@     @@@  +    @@@@@@@@" >> $i
-echo -e "      @@@@@  @@@@,    @.  @@:   ;@@@@@@@" >> $i
-echo -e "      @@@@@@; @@@    @@  @@@+   @@@@@@@@" >> $i
-echo -e "      @@@@@@@ @@;    @@@ +@@    @@@@@@@@" >> $i
-echo -e "      @@@@@@@# @      @@@ @@    @@@@@@@@" >> $i
-echo -e "      @@@@@@@@    :   @@@.;.     @@@@@@@" >> $i
-echo -e "      @@@@@@@@@   @@  #@@@   @   @@@@@@@" >> $i
-echo -e "      @@@@@@@@@   @@,  @@@: .@@  @@@@@@@" >> $i
-echo -e "      @@@@@@@@@  #@@@  @@@.  @@, ;@@@@@@" >> $i
-echo -e "      @@@@@@@@@   @@@, +@@   @@@  @@@@@@" >> $i
-echo -e "      @@@@@@@@: . :@@@  @@   #@@: @@@@@@" >> $i
-echo -e "      @@@@@@@@@  @ @@@: @@ .# @@@  @@@@@" >> $i
-echo -e "      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" >> $i
-echo -e "      #@@@@@@@@@@@@@ LINUX @@@@@@@@@@@@#" >> $i
-echo -e "      .@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@." >> $i
-echo -e "        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" >> $i
-echo -e "           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" >> $i
-echo -e "    	       .#@@@@@@@@@@@@@@@@@@@@@@@@#." >> $i
+sudo echo -e "   .#@@@@@@@@@@@@@@@@@@@@@@@@#." > $i
+sudo echo -e "     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" >> $i
+sudo echo -e "      .@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@." >> $i
+sudo echo -e "      #@@@@@@@@@@@ NOMADIC @@@@@@@@@@@@#" >> $i
+sudo echo -e "      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@    @@@@@@@@@@@@@@@@@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@    @@@@@@@@  +@@@@@@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@@  @@  @@@@    @@@@@@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@@@   ; +@@@    @@@@@@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@@+   .  @@@@  ;@  @@@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@@     + +@@@@      @@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@@        @@@@      @@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@@      @@@@@;    # ;@@@@@@" >> $i
+sudo echo -e "      @@@@@@@:  +     @@@@       @@@@@@@" >> $i
+sudo echo -e "      @@@@@@   #@     @@@  +    @@@@@@@@" >> $i
+sudo echo -e "      @@@@@  @@@@,    @.  @@:   ;@@@@@@@" >> $i
+sudo echo -e "      @@@@@@; @@@    @@  @@@+   @@@@@@@@" >> $i
+sudo echo -e "      @@@@@@@ @@;    @@@ +@@    @@@@@@@@" >> $i
+sudo echo -e "      @@@@@@@# @      @@@ @@    @@@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@    :   @@@.;.     @@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@@   @@  #@@@   @   @@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@@   @@,  @@@: .@@  @@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@@  #@@@  @@@.  @@, ;@@@@@@" >> $i
+sudo echo -e "      @@@@@@@@@   @@@, +@@   @@@  @@@@@@" >> $i
+sudo echo -e "      @@@@@@@@: . :@@@  @@   #@@: @@@@@@" >> $i
+sudo echo -e "      @@@@@@@@@  @ @@@: @@ .# @@@  @@@@@" >> $i
+sudo echo -e "      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" >> $i
+sudo echo -e "      #@@@@@@@@@@@@@ LINUX @@@@@@@@@@@@#" >> $i
+sudo echo -e "      .@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@." >> $i
+sudo echo -e "        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" >> $i
+sudo echo -e "           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" >> $i
+sudo echo -e "    	       .#@@@@@@@@@@@@@@@@@@@@@@@@#." >> $i
+}
 
-cat << EOF > $SKEL/.screenrc 
+cat << EOF > ~/.screenrc 
 shell -${SHELL}
 caption always "[ %t(%n) ] %w"
 defscrollback 1024
@@ -61,30 +53,44 @@ hardstatus alwayslastline
 screen -t emacs 0 emacs -nw --visit ~/index.org
 EOF
 
-cat << EOF > $SKEL/index.org
+cat << EOF > ~/index.org
 #+TITLE: $USERNAME's notes.
 #+TODO: TODO(t!/@) STAGE1(1!/@) STAGE2(2!/@) STAGE3(3!/@) STAGE4(4!/@) | FUNDED(f!/@) DEFUNDED(d!/@) DELEGATED(D!/@) DONE(X!/@)
 EOF
 
-cat <<EOF >> /etc/tor/torrc
+function configure_tor() {
+sudo cat <<EOF >> /etc/tor/torrc
 # Nomadic services
 HiddenServiceDir /var/lib/tor/http/
-HiddenServicePort 80 127.0.0.1:4567
+HiddenServicePort 80 127.0.0.1:80
 HiddenServiceDir /var/lib/tor/irc/
 HiddenServicePort 6667 127.0.0.1:6667
 HiddenServiceDir /var/lib/tor/ssh/
 HiddenServicePort 22 127.0.0.1:22
 EOF
+}
 
 #############################
-apt-get -y install $DEBS
-gem install $GEMS
+function system_install() {
+    nomadic_login_logo
+    configure_tor
+    sudo apt-get -y install $DEBS
+    sudo gem install $GEMS
+}
 #############################
 
-userdel $USERNAME
-rm -fR /home/$USERNAME
-useradd --shell /bin/bash -m $USERNAME
-usermod -a -G sudo $USERNAME
-echo "$USERNAME ALL = (ALL) ALL" >> /etc/sudoers
-echo "**** SET YOUR NEW PASSWORD FOR $USERNAME ***"
-passwd $USERNAME
+cd ~/
+git clone https://github.com/xorgnak/leah.git
+cd leah
+sudo ./install.sh
+
+cd ~/
+git clone https://github.com/xorgnak/clerk.git
+cd clerk
+sudo ./install.sh
+
+cd ~/
+git clone https://github.com/xorgnak/gluon.git
+if [[ $1 == '--system' ]]; then
+    system_install
+fi
