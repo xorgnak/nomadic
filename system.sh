@@ -51,5 +51,5 @@ HiddenServiceDir /var/lib/tor/ssh/
 HiddenServicePort 22 127.0.0.1:22
 EOF
 
-apt-get -y install $DEBS
-gem install $GEMS
+sudo apt-get -y install $DEBS
+sudo gem install $GEMS
