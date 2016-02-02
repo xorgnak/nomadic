@@ -15,13 +15,14 @@ cat << EOF > ~/index.org
 #+TODO: TODO(t!/@) STAGE1(1!/@) STAGE2(2!/@) STAGE3(3!/@) STAGE4(4!/@) | FUNDED(f!/@) DEFUNDED(d!/@) DELEGATED(D!/@) DONE(X!/@)
 EOF
 
-cat << EOF > ~/.torrc                                                                                                                                                                                         
+cp /etc/torrc ~/.torrc
+cat << EOF >> ~/.torrc                                                                                                                                                                                         
 # Nomadic services
-HiddenServiceDir /home/$USER/http/                                                                                                                                                                                 
+HiddenServiceDir /home/$USER/tor/http/ 
 HiddenServicePort 80 127.0.0.1:80
 HiddenServiceDir /home/$USER/tor/irc/
 HiddenServicePort 6667 127.0.0.1:6667
-HiddenServiceDir /home/$USER/ssh/
+HiddenServiceDir /home/$USER/tor/ssh/
 HiddenServicePort 22 127.0.0.1:22
 EOF
 
