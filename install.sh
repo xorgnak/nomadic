@@ -15,7 +15,7 @@ cat << EOF > ~/index.org
 #+TODO: TODO(t!/@) STAGE1(1!/@) STAGE2(2!/@) STAGE3(3!/@) STAGE4(4!/@) | FUNDED(f!/@) DEFUNDED(d!/@) DELEGATED(D!/@) DONE(X!/@)
 EOF
 
-cp /etc/torrc ~/.torrc
+cp /etc/tor/torrc ~/.torrc
 cat << EOF >> ~/.torrc                                                                                                                                                                                         
 # Nomadic services
 HiddenServiceDir /home/$USER/tor/http/ 
