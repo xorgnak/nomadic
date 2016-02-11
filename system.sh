@@ -5,8 +5,8 @@ SYS='inotify-tools screen redis-server openssh-server tor qrencode'
 GEMS="pry sinatra redis-objects cinch thin gmail"
 DEBS="$DEV $SYS"
 
-sudo apt-get -y install $DEBS
-sudo gem install --no-ri --no-rdoc $GEMS
+apt-get -y install $DEBS
+gem install --no-ri --no-rdoc $GEMS
 
 mkdir /var/www/
 
