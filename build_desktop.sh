@@ -83,7 +83,7 @@ cat <<EOF > $SKEL/.xinitrc
 xrdb -merge ~/.Xresources
 #hash emacs && emacs -fs --visit ~/index.org &
 hash tilda && tilda &
-hash chromium && chromium --start-maximized &
+hash chromium && chromium --start-fullscreen &
 exec $DISTRO_WM_DEB
 EOF
 
@@ -266,7 +266,7 @@ auto_hide_on_focus_lost = false
 auto_hide_on_mouse_leave = false
 EOF
 
-cat << 'EOF' > $ROOT/.bashrc
+cat << 'EOF' > $ROOT/leah.sh
 #!/bin/bash
 ANON="true"
 PS1="#> "
@@ -348,9 +348,6 @@ alias discover="scan_local_network"
 alias spy="run_tshark"
 alias tor_http="start_hidden_http"
 alias tor_ssh="start_hidden_ssh"
-echo "# wifi <location> [ssid] [key]"
-echo "# discover [args]"
-echo "# spy [args]"
 echo "############################"
 echo "# Dont do anything stupid. #"
 echo "############################"
