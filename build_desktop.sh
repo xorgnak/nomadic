@@ -31,6 +31,10 @@ DIR="$DISTRO_NAME-$DISTRO_VERSION-$DISTRO_RELEASE"
 DEBS="$DISTRO_SYSTEM_DEBS $DISTRO_GUI_DEBS $DISTRO_WM_DEB"
 
 ##
+# CONFIG DUMP
+CONF=$DISTRO_NAME-$DISTRO_VERSION-$DISTRO_RELEASE_config.txt
+
+##
 # Internal helper variables.
 HOOK="config/hooks"
 ROOT="config/includes.chroot/root"
@@ -67,25 +71,32 @@ mkdir -p $SKEL
 mkdir -p $ROOT
 mkdir -p $BIN_S
 mkdir -p $BIN_R
+mkdir -p $PACKAGES
+mkdir -p $SEED
+mkdir -p $HOOK
 #mkdir -p $ISOLINUX
 
+echo "### DEBS" >> $CONF
+echo "$DEBS" >> $CONF
 echo "$DEBS" > $PACKAGES/$DISTRO_NAME.list.chroot
 echo "$DEBS" > $PACKAGES/$DISTRO_NAME.list.binary
 
 ##
 # STAGE THREE
-
-cat << EOF | tee $SEED/$DISTRO_NAME.cfg.chroot $SEED/$DISTRO_NAME.cfg.binary
+echo "### PRESEED" >> $CONF
+cat << EOF | tee $SEED/$DISTRO_NAME.cfg.chroot $SEED/$DISTRO_NAME.cfg.binary >> $CONF
 d-i partman-auto/choose_recipe select atomic
 tasksel tasksel/first multiselect standard $DISTRO_WM-desktop
 d-i pkgsel/include string $DEBS
 EOF
 
-cat << EOF | tee $HOOK/0666-$DISTRO_NAME.hook.chroot $HOOK/0666-$DISTRO_NAME.hook.chroot
+echo "### HOOK" >> $CONF
+cat << EOF | tee $HOOK/0666-$DISTRO_NAME.hook.chroot $HOOK/0666-$DISTRO_NAME.hook.chroot >> $CONF
 apt-get -y install ruby-full && gem install --no-ri --no-rdoc $DISTRO_GEMS
 EOF
 
-cat <<EOF | tee $SKEL/.xinitrc $BIN_S/.xinitrc
+echo "### XINITRC" >> $CONF
+cat <<EOF | tee $SKEL/.xinitrc $BIN_S/.xinitrc >> $CONF
 xrdb -merge ~/.Xresources
 #hash emacs && emacs -fs --visit ~/index.org &
 hash tilda && tilda &
@@ -93,7 +104,8 @@ hash chromium && chromium --start-fullscreen &
 exec $DISTRO_WM_DEB
 EOF
 
-cat << EOF | tee $SKEL/.screenrc $BIN_S/.screenrc
+echo "### SCREENRC" >> $CONF
+cat << EOF | tee $SKEL/.screenrc $BIN_S/.screenrc >> $CONF
 shell -${SHELL}
 caption always "[ %t(%n) ] %w"
 defscrollback 1024
@@ -105,7 +117,8 @@ screen -t bash 1 bash
 screen -t pry 2 pry
 EOF
 
-cat << EOF | tee $SKEL/index.org $BIN_S/index.org
+echo "### INDEX" >> $CONF
+cat << EOF | tee $SKEL/index.org $BIN_S/index.org >> $CONF
 #+TITLE: Nomadic Linux.
 #+TODO: TODO(t!/@) ACTION(a!/@) WORKING(w!/@) | ACTIVE(f!/@) DELEGATED(D!/@) DONE(X!/@)
 #+OPTIONS: stat:t html-postamble:nil H:1 num:nil toc:t \n:nil ::nil |:t ^:t f:t tex:t
@@ -133,6 +146,7 @@ cat << EOF | tee $SKEL/index.org $BIN_S/index.org
   Nomadic linux believes in staying organized.  Org mode keeps notes well organized. Nomadic linux also integrates lots of other tools to automate the process of exporting these files.
 EOF
 
+echo "### EMACS" >> $CONF
 cat << EOF | tee $SKEL/.emacs $BIN_S/.emacs
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -150,7 +164,8 @@ cat << EOF | tee $SKEL/.emacs $BIN_S/.emacs
  )
 EOF
 
-cat << EOF | tee $SKEL/.Xresources $BIN_S/.Xresources
+echo "### XRESOURCES" >> $CONF
+cat << EOF | tee $SKEL/.Xresources $BIN_S/.Xresources >> $CONF
 ! XTERM -----------------------------------------------------------------------
 XTerm*locale: true
 XTerm*termName:        xterm-256color
@@ -188,7 +203,8 @@ EOF
 mkdir -p $SKEL/.config/tilda
 mkdir -p $BIN_S/.config/tilda
 
-cat <<EOF | tee $SKEL/.config/tilda/config_0 $BIN_S/.config/tilda/config_0
+echo "### TILDA" >> $CONF
+cat <<EOF | tee $SKEL/.config/tilda/config_0 $BIN_S/.config/tilda/config_0 >> $CONF
 tilda_config_version = "1.1.12"
 # image = ""
 command = "screen"
@@ -273,7 +289,16 @@ auto_hide_on_focus_lost = false
 auto_hide_on_mouse_leave = false
 EOF
 
-cat << 'EOF' | tee $ROOT/leah.sh $BIN_R/leah.sh
+cat << 'EOF' >> $SKEL/.bashrc
+function leah() { sudo su -c "source ~/leah.sh &&" }
+EOF
+
+cat << 'EOF' >> $BIN_S/.bashrc
+function leah() { su -c "source ~/leah.sh &&" }
+EOF
+
+echo "### LEAH" >> $CONF
+cat << 'EOF' | tee $ROOT/leah.sh $BIN_R/leah.sh >> $CONF
 #!/bin/bash
 ANON="true"
 PS1="#> "
@@ -339,7 +364,8 @@ EOF
 ##
 # TRAMP STAMP
 
-cat <<EOF | tee $HOOK/9999-update-issue.hook.chroot $HOOK/9999-update-issue.hook.binary
+echo "### ISSUE" >> $CONF
+cat <<EOF | tee $HOOK/9999-update-issue.hook.chroot $HOOK/9999-update-issue.hook.binary >> $CONF
 cat <<END > /etc/issue
 The programs included with the Debian GNU/Linux system are free software;
 the exact distribution terms for each program are described in the
