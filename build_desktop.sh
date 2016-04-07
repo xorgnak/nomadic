@@ -34,7 +34,9 @@ DEBS="$DISTRO_SYSTEM_DEBS $DISTRO_GUI_DEBS $DISTRO_WM_DEB"
 # Internal helper variables.
 HOOK="config/hooks"
 ROOT="config/includes.chroot/root"
+BIN_R="config/includes.binary/root"
 SKEL="config/includes.chroot/etc/skel"
+BIN_S="config/includes.binary/etc/skel"
 PACKAGES="config/package-lists"
 SEED='config/preseed'
 ISOLINUX='config/bootloaders/isolinux'
@@ -63,23 +65,27 @@ lb config --verbose \
 
 mkdir -p $SKEL
 mkdir -p $ROOT
+mkdir -p $BIN_S
+mkdir -p $BIN_R
 #mkdir -p $ISOLINUX
 
 echo "$DEBS" > $PACKAGES/$DISTRO_NAME.list.chroot
+echo "$DEBS" > $PACKAGES/$DISTRO_NAME.list.binary
 
 ##
 # STAGE THREE
 
-cat <<EOF > $SEED/$DISTRO_NAME.cfg.chroot
+cat << EOF | tee $SEED/$DISTRO_NAME.cfg.chroot $SEED/$DISTRO_NAME.cfg.binary
 d-i partman-auto/choose_recipe select atomic
-tasksel tasksel/first multiselect standard cinnamon-desktop
+tasksel tasksel/first multiselect standard $DISTRO_WM-desktop
+d-i pkgsel/include string $DEBS
 EOF
 
-cat <<EOF > $HOOK/0600-system-gems-install.hook.chroot
-gem install --no-ri --no-rdoc $DISTRO_GEMS
+cat << EOF | tee $HOOK/0666-$DISTRO_NAME.hook.chroot $HOOK/0666-$DISTRO_NAME.hook.chroot
+apt-get -y install ruby-full && gem install --no-ri --no-rdoc $DISTRO_GEMS
 EOF
 
-cat <<EOF > $SKEL/.xinitrc
+cat <<EOF | tee $SKEL/.xinitrc $BIN_S/.xinitrc
 xrdb -merge ~/.Xresources
 #hash emacs && emacs -fs --visit ~/index.org &
 hash tilda && tilda &
@@ -87,7 +93,7 @@ hash chromium && chromium --start-fullscreen &
 exec $DISTRO_WM_DEB
 EOF
 
-cat << EOF > $SKEL/.screenrc 
+cat << EOF | tee $SKEL/.screenrc $BIN_S/.screenrc
 shell -${SHELL}
 caption always "[ %t(%n) ] %w"
 defscrollback 1024
@@ -99,7 +105,7 @@ screen -t bash 1 bash
 screen -t pry 2 pry
 EOF
 
-cat << EOF > $SKEL/index.org
+cat << EOF | tee $SKEL/index.org $BIN_S/index.org
 #+TITLE: Nomadic Linux.
 #+TODO: TODO(t!/@) ACTION(a!/@) WORKING(w!/@) | ACTIVE(f!/@) DELEGATED(D!/@) DONE(X!/@)
 #+OPTIONS: stat:t html-postamble:nil H:1 num:nil toc:t \n:nil ::nil |:t ^:t f:t tex:t
@@ -127,7 +133,7 @@ cat << EOF > $SKEL/index.org
   Nomadic linux believes in staying organized.  Org mode keeps notes well organized. Nomadic linux also integrates lots of other tools to automate the process of exporting these files.
 EOF
 
-cat << EOF > $SKEL/.emacs
+cat << EOF | tee $SKEL/.emacs $BIN_S/.emacs
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -144,7 +150,7 @@ cat << EOF > $SKEL/.emacs
  )
 EOF
 
-cat << EOF > $SKEL/.Xresources
+cat << EOF | tee $SKEL/.Xresources $BIN_S/.Xresources
 ! XTERM -----------------------------------------------------------------------
 XTerm*locale: true
 XTerm*termName:        xterm-256color
@@ -180,8 +186,9 @@ XTerm*color15:     #ffffff
 EOF
 
 mkdir -p $SKEL/.config/tilda
+mkdir -p $BIN_S/.config/tilda
 
-cat <<EOF > $SKEL/.config/tilda/config_0
+cat <<EOF | tee $SKEL/.config/tilda/config_0 $BIN_S/.config/tilda/config_0
 tilda_config_version = "1.1.12"
 # image = ""
 command = "screen"
@@ -266,16 +273,16 @@ auto_hide_on_focus_lost = false
 auto_hide_on_mouse_leave = false
 EOF
 
-cat << 'EOF' > $ROOT/leah.sh
+cat << 'EOF' | tee $ROOT/leah.sh $BIN_R/leah.sh
 #!/bin/bash
 ANON="true"
 PS1="#> "
-function scan_local_network() {
+function discover() {
     IP_REGEXP="(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
     IPs=`sudo arp-scan --localnet | grep -E -o $IP_REGEXP`
     nmap -O -F -v $IPs
 }
-function connect_wireless() {
+function wifi() {
     WPA=/etc/wpa_supplicant/$1.conf
     if [[ $ANON == "true" ]]; then
 	echo "Randomizing MAC address..."
@@ -306,48 +313,20 @@ key_mgmt=NONE
     fi    
 }
 
-function start_hidden_http() {
-  pkill tor
-cat << END >> /etc/tor/torrc
-HiddenServiceDir /var/lib/tor/http/
-HiddenServicePort 80 127.0.0.1:80
-END
-  tor &
-  cat /var/lib/tor/http/hostname
-}
-
-function start_hidden_ssh() {
+function hidden_service() {
   pkill tor
 cat <<END >> /etc/tor/torrc
-HiddenServiceDir /var/lib/tor/ssh/
-HiddenServicePort 22 127.0.0.1:22
+HiddenServiceDir /var/lib/tor/$1/
+HiddenServicePort $1 127.0.0.1:$1
 END
   tor &
-  cat /var/lib/tor/ssh/hostname
+  echo "Your service is at: `cat /var/lib/tor/$1/hostname`"
 }
-
-function run_wifite() {
-    wifite
+function mnt() {
+    mkdir /mnt/$1
+    mount /dev/$1 /mnt/$1
+    ls -lha /mnt/$1
 }
-function run_tshark() {
-    tshark $*
-}
-function mount_hd() {
-    mkdir /media/hd
-    mount /dev/sda1 /media/hd
-}
-
-function mount_sd() {
-    mkdir /media/sd
-    mount /dev/sdb2 /media/sd
-}
-
-alias wifi="connect_wireless" 
-alias hack="run_wifite"
-alias discover="scan_local_network"
-alias spy="run_tshark"
-alias tor_http="start_hidden_http"
-alias tor_ssh="start_hidden_ssh"
 echo "############################"
 echo "# Dont do anything stupid. #"
 echo "############################"
@@ -360,7 +339,7 @@ EOF
 ##
 # TRAMP STAMP
 
-cat <<EOF > $HOOK/9999-update-issue.hook.chroot
+cat <<EOF | tee $HOOK/9999-update-issue.hook.chroot $HOOK/9999-update-issue.hook.binary
 cat <<END > /etc/issue
 The programs included with the Debian GNU/Linux system are free software;
 the exact distribution terms for each program are described in the
