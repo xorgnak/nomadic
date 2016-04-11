@@ -147,7 +147,7 @@ cat << EOF | tee $SKEL/index.org $BIN_S/index.org >> $CONF
 EOF
 
 echo "### EMACS" >> $CONF
-cat << EOF | tee $SKEL/.emacs $BIN_S/.emacs
+cat << EOF | tee $SKEL/.emacs $BIN_S/.emacs >> $CONF
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
