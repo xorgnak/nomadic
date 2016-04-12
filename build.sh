@@ -28,26 +28,30 @@ DEBIAN_FLAVORS='i386'
 ##
 # Internal porcelin variables. 
 DIR="$DISTRO_NAME-$DISTRO_VERSION-$DISTRO_RELEASE"
-DEBS="$DISTRO_SYSTEM_DEBS $DISTRO_GUI_DEBS $DISTRO_WM_DEB"
+
+if [[ $1 == '--pretty'  ]]; then
+    DEBS="$DISTRO_SYSTEM_DEBS $DISTRO_GUI_DEBS $DISTRO_WM_DEB"
+else
+    DEBS="$DISTRO_SYSTEM_DEBS"
+fi
+
 
 ##
 # CONFIG DUMP
-CONF=$DISTRO_NAME-$DISTRO_VERSION-$DISTRO_RELEASE_config.txt
+CONF=$DISTRO_NAME-$DISTRO_VERSION-$DISTRO_RELEASE.config.txt
 
 ##
 # Internal helper variables.
 HOOK="config/hooks"
 ROOT="config/includes.chroot/root"
-BIN_R="config/includes.binary/root"
+ROOT_I="config/includes.installer/root"
 SKEL="config/includes.chroot/etc/skel"
-BIN_S="config/includes.binary/etc/skel"
+SKEL_I="config/includes.installer/etc/skel"
+I="config/includes.installer"
+C="config/includes.chroot"
 PACKAGES="config/package-lists"
 SEED='config/preseed'
 ISOLINUX='config/bootloaders/isolinux'
-
-if [[ $1 != '' ]]; then
-    source $1
-fi
 
 mkdir -p $DIR
 cd $DIR
@@ -62,15 +66,16 @@ lb config --verbose \
    -a $DEBIAN_FLAVORS \
    --debian-installer true \
    --debian-installer-gui true \
-   --archive-areas "main contrib non-free"
+   --archive-areas "main contrib non-free" \
+   --bootappend-live "live persistence components hostname=nomad"
 
 ##
 # STAGE TWO
 
 mkdir -p $SKEL
 mkdir -p $ROOT
-mkdir -p $BIN_S
-mkdir -p $BIN_R
+mkdir -p $SKEL_I
+mkdir -p $ROOT_I
 mkdir -p $PACKAGES
 mkdir -p $SEED
 mkdir -p $HOOK
@@ -79,33 +84,36 @@ mkdir -p $HOOK
 echo "### DEBS" >> $CONF
 echo "$DEBS" >> $CONF
 echo "$DEBS" > $PACKAGES/$DISTRO_NAME.list.chroot
-echo "$DEBS" > $PACKAGES/$DISTRO_NAME.list.binary
 
 ##
 # STAGE THREE
 echo "### PRESEED" >> $CONF
-cat << EOF | tee $SEED/$DISTRO_NAME.cfg.chroot $SEED/$DISTRO_NAME.cfg.binary >> $CONF
+cat << EOF | tee $SEED/$DISTRO_NAME.cfg.chroot $I/preseed.cfg >> $CONF
 d-i partman-auto/choose_recipe select atomic
 tasksel tasksel/first multiselect standard $DISTRO_WM-desktop
 d-i pkgsel/include string $DEBS
 EOF
 
+
+# No nomadic gems in installer - yet
 echo "### HOOK" >> $CONF
-cat << EOF | tee $HOOK/0666-$DISTRO_NAME.hook.chroot $HOOK/0666-$DISTRO_NAME.hook.chroot >> $CONF
+cat << EOF | tee $HOOK/0666-$DISTRO_NAME.hook.chroot >> $CONF
 apt-get -y install ruby-full && gem install --no-ri --no-rdoc $DISTRO_GEMS
 EOF
 
+
+if [[ $1 == '--pretty' ]]; then
 echo "### XINITRC" >> $CONF
-cat <<EOF | tee $SKEL/.xinitrc $BIN_S/.xinitrc >> $CONF
+cat <<EOF | tee $SKEL/.xinitrc $SKEL_I/.xinitrc >> $CONF
 xrdb -merge ~/.Xresources
 #hash emacs && emacs -fs --visit ~/index.org &
 hash tilda && tilda &
 hash chromium && chromium --start-fullscreen &
 exec $DISTRO_WM_DEB
 EOF
-
+fi
 echo "### SCREENRC" >> $CONF
-cat << EOF | tee $SKEL/.screenrc $BIN_S/.screenrc >> $CONF
+cat << EOF | tee $SKEL/.screenrc $SKEL_I/.screenrc >> $CONF
 shell -${SHELL}
 caption always "[ %t(%n) ] %w"
 defscrollback 1024
@@ -118,7 +126,7 @@ screen -t pry 2 pry
 EOF
 
 echo "### INDEX" >> $CONF
-cat << EOF | tee $SKEL/index.org $BIN_S/index.org >> $CONF
+cat << EOF | tee $SKEL/index.org $SKEL_I/index.org >> $CONF
 #+TITLE: Nomadic Linux.
 #+TODO: TODO(t!/@) ACTION(a!/@) WORKING(w!/@) | ACTIVE(f!/@) DELEGATED(D!/@) DONE(X!/@)
 #+OPTIONS: stat:t html-postamble:nil H:1 num:nil toc:t \n:nil ::nil |:t ^:t f:t tex:t
@@ -147,7 +155,7 @@ cat << EOF | tee $SKEL/index.org $BIN_S/index.org >> $CONF
 EOF
 
 echo "### EMACS" >> $CONF
-cat << EOF | tee $SKEL/.emacs $BIN_S/.emacs >> $CONF
+cat << EOF | tee $SKEL/.emacs $SKEL_I/.emacs >> $CONF
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -164,8 +172,10 @@ cat << EOF | tee $SKEL/.emacs $BIN_S/.emacs >> $CONF
  )
 EOF
 
+
+if [[ $1 == '--pretty' ]]; then
 echo "### XRESOURCES" >> $CONF
-cat << EOF | tee $SKEL/.Xresources $BIN_S/.Xresources >> $CONF
+cat << EOF | tee $SKEL/.Xresources $SKEL_I/.Xresources >> $CONF
 ! XTERM -----------------------------------------------------------------------
 XTerm*locale: true
 XTerm*termName:        xterm-256color
@@ -201,10 +211,10 @@ XTerm*color15:     #ffffff
 EOF
 
 mkdir -p $SKEL/.config/tilda
-mkdir -p $BIN_S/.config/tilda
+mkdir -p $SKEL_I/.config/tilda
 
 echo "### TILDA" >> $CONF
-cat <<EOF | tee $SKEL/.config/tilda/config_0 $BIN_S/.config/tilda/config_0 >> $CONF
+cat <<EOF | tee $SKEL/.config/tilda/config_0 $SKEL_I/.config/tilda/config_0 >> $CONF
 tilda_config_version = "1.1.12"
 # image = ""
 command = "screen"
@@ -288,17 +298,18 @@ double_buffer = true
 auto_hide_on_focus_lost = false
 auto_hide_on_mouse_leave = false
 EOF
+fi
 
 cat << 'EOF' >> $SKEL/.bashrc
-function leah() { sudo su -c "source ~/leah.sh &&" }
+function leah() { sudo su -c "source /root/leah.sh && $*"; }
 EOF
 
-cat << 'EOF' >> $BIN_S/.bashrc
-function leah() { su -c "source ~/leah.sh &&" }
+cat << 'EOF' >> $SKEL_I/.bashrc
+function leah() { su -c "source /root/leah.sh && $*"; }
 EOF
 
 echo "### LEAH" >> $CONF
-cat << 'EOF' | tee $ROOT/leah.sh $BIN_R/leah.sh >> $CONF
+cat << 'EOF' | tee $ROOT/leah.sh $ROOT_I/leah.sh >> $CONF
 #!/bin/bash
 ANON="true"
 PS1="#> "
@@ -338,19 +349,26 @@ key_mgmt=NONE
     fi    
 }
 
-function hidden_service() {
+function kill_all_wifi() {}
+    pkill NetworkManager;
+    pkill wpa_supplicant;
+    pkill dhclient;
+}
+
+function svc() {
   pkill tor
 cat <<END >> /etc/tor/torrc
 HiddenServiceDir /var/lib/tor/$1/
 HiddenServicePort $1 127.0.0.1:$1
 END
   tor &
-  echo "Your service is at: `cat /var/lib/tor/$1/hostname`"
+  echo "Your service is at: `cat /var/lib/tor/$1/hostname`";
 }
 function mnt() {
-    mkdir /mnt/$1
-    mount /dev/$1 /mnt/$1
-    ls -lha /mnt/$1
+    mkdir /mnt/$1;
+    mount /dev/$1 /mnt/$1;
+    echo "DEVICE: /dev/$1 MOUNTED: /mnt/$1";
+    ls -lha /mnt/$1;
 }
 echo "############################"
 echo "# Dont do anything stupid. #"
@@ -365,8 +383,7 @@ EOF
 # TRAMP STAMP
 
 echo "### ISSUE" >> $CONF
-cat <<EOF | tee $HOOK/9999-update-issue.hook.chroot $HOOK/9999-update-issue.hook.binary >> $CONF
-cat <<END > /etc/issue
+cat <<EOF | tee $C/etc/issue $I/etc/issue >> $CONF
 The programs included with the Debian GNU/Linux system are free software;
 the exact distribution terms for each program are described in the
 individual files in /usr/share/doc/*/copyright.
