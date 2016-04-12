@@ -45,9 +45,12 @@ CONF=$DISTRO_NAME-$DISTRO_VERSION-$DISTRO_RELEASE.config.txt
 HOOK="config/hooks"
 ROOT="config/includes.chroot/root"
 ROOT_I="config/includes.installer/root"
+ROOT_B="config/includes.binary/root"
 SKEL="config/includes.chroot/etc/skel"
 SKEL_I="config/includes.installer/etc/skel"
+SKEL_B="config/includes.binary/etc/skel"
 I="config/includes.installer"
+B="config/includes.binary"
 C="config/includes.chroot"
 PACKAGES="config/package-lists"
 SEED='config/preseed'
@@ -84,11 +87,12 @@ mkdir -p $HOOK
 echo "### DEBS" >> $CONF
 echo "$DEBS" >> $CONF
 echo "$DEBS" > $PACKAGES/$DISTRO_NAME.list.chroot
+echo "$DEBS" > $PACKAGES/$DISTRO_NAME.list.binary
 
 ##
 # STAGE THREE
 echo "### PRESEED" >> $CONF
-cat << EOF | tee $SEED/$DISTRO_NAME.cfg.chroot $I/preseed.cfg >> $CONF
+cat << EOF | tee $SEED/$DISTRO_NAME.cfg.chroot $SEED/$DISTRO_NAME.cfg.binary $I/preseed.cfg >> $CONF
 d-i partman-auto/choose_recipe select atomic
 tasksel tasksel/first multiselect standard $DISTRO_WM-desktop
 d-i pkgsel/include string $DEBS
@@ -97,14 +101,14 @@ EOF
 
 # No nomadic gems in installer - yet
 echo "### HOOK" >> $CONF
-cat << EOF | tee $HOOK/0666-$DISTRO_NAME.hook.chroot >> $CONF
+cat << EOF | tee $HOOK/0666-$DISTRO_NAME.hook.chroot $HOOK/0666-$DISTRO_NAME.hook.binary $HOOK/0666-$DISTRO_NAME.hook.installer >> $CONF
 apt-get -y install ruby-full && gem install --no-ri --no-rdoc $DISTRO_GEMS
 EOF
 
 
 if [[ $1 == '--pretty' ]]; then
 echo "### XINITRC" >> $CONF
-cat <<EOF | tee $SKEL/.xinitrc $SKEL_I/.xinitrc >> $CONF
+cat <<EOF | tee $SKEL/.xinitrc $SKEL_B/.xinitrc $SKEL_I/.xinitrc >> $CONF
 xrdb -merge ~/.Xresources
 #hash emacs && emacs -fs --visit ~/index.org &
 hash tilda && tilda &
@@ -113,7 +117,7 @@ exec $DISTRO_WM_DEB
 EOF
 fi
 echo "### SCREENRC" >> $CONF
-cat << EOF | tee $SKEL/.screenrc $SKEL_I/.screenrc >> $CONF
+cat << EOF | tee $SKEL/.screenrc $SKEL_B/.screenrc $SKEL_I/.screenrc >> $CONF
 shell -${SHELL}
 caption always "[ %t(%n) ] %w"
 defscrollback 1024
@@ -126,7 +130,7 @@ screen -t pry 2 pry
 EOF
 
 echo "### INDEX" >> $CONF
-cat << EOF | tee $SKEL/index.org $SKEL_I/index.org >> $CONF
+cat << EOF | tee $SKEL/index.org $SKEL_B/index.org $SKEL_I/index.org >> $CONF
 #+TITLE: Nomadic Linux.
 #+TODO: TODO(t!/@) ACTION(a!/@) WORKING(w!/@) | ACTIVE(f!/@) DELEGATED(D!/@) DONE(X!/@)
 #+OPTIONS: stat:t html-postamble:nil H:1 num:nil toc:t \n:nil ::nil |:t ^:t f:t tex:t
@@ -155,7 +159,7 @@ cat << EOF | tee $SKEL/index.org $SKEL_I/index.org >> $CONF
 EOF
 
 echo "### EMACS" >> $CONF
-cat << EOF | tee $SKEL/.emacs $SKEL_I/.emacs >> $CONF
+cat << EOF | tee $SKEL/.emacs $SKEL_B/.emacs $SKEL_I/.emacs >> $CONF
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -175,7 +179,7 @@ EOF
 
 if [[ $1 == '--pretty' ]]; then
 echo "### XRESOURCES" >> $CONF
-cat << EOF | tee $SKEL/.Xresources $SKEL_I/.Xresources >> $CONF
+cat << EOF | tee $SKEL/.Xresources $SKEL_B/.Xresources $SKEL_I/.Xresources >> $CONF
 ! XTERM -----------------------------------------------------------------------
 XTerm*locale: true
 XTerm*termName:        xterm-256color
@@ -212,9 +216,10 @@ EOF
 
 mkdir -p $SKEL/.config/tilda
 mkdir -p $SKEL_I/.config/tilda
+mkdir -p $SKEL_B/.config/tilda
 
 echo "### TILDA" >> $CONF
-cat <<EOF | tee $SKEL/.config/tilda/config_0 $SKEL_I/.config/tilda/config_0 >> $CONF
+cat <<EOF | tee $SKEL/.config/tilda/config_0 $SKEL_B/.config/tilda/config_0 $SKEL_I/.config/tilda/config_0 >> $CONF
 tilda_config_version = "1.1.12"
 # image = ""
 command = "screen"
@@ -300,7 +305,8 @@ auto_hide_on_mouse_leave = false
 EOF
 fi
 
-cat << 'EOF' >> $SKEL/.bashrc
+### LEAH - bashrc
+cat << 'EOF' | tee $SKEL/.bashrc $SKEL_B/.bashrc >> $CONF
 function leah() { sudo su -c "source /root/leah.sh && $*"; }
 EOF
 
@@ -309,7 +315,7 @@ function leah() { su -c "source /root/leah.sh && $*"; }
 EOF
 
 echo "### LEAH" >> $CONF
-cat << 'EOF' | tee $ROOT/leah.sh $ROOT_I/leah.sh >> $CONF
+cat << 'EOF' | tee $ROOT/leah.sh $ROOT_B/leah.sh $ROOT_I/leah.sh >> $CONF
 #!/bin/bash
 ANON="true"
 PS1="#> "
@@ -383,7 +389,7 @@ EOF
 # TRAMP STAMP
 
 echo "### ISSUE" >> $CONF
-cat <<EOF | tee $C/etc/issue $I/etc/issue >> $CONF
+cat <<EOF | tee $C/etc/issue $B/etc/issue $I/etc/issue >> $CONF
 The programs included with the Debian GNU/Linux system are free software;
 the exact distribution terms for each program are described in the
 individual files in /usr/share/doc/*/copyright.
