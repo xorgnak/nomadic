@@ -8,8 +8,13 @@
 ## MOVE TO EXTERNAL CONFIG
 DISTRO_WM_DEB='cinnamon'
 DISTRO_GUI_DEBS="xinit xterm xorg tor chromium audacity electrum tilda scrot"
+<<<<<<< HEAD
 DISTRO_SYSTEM_DEBS='git emacs emacs-goodies-el vim ruby-full inotify-tools screen redis-server openssh-server tor qrencode nmap arp-scan grep wpasupplicant macchanger tshark wifite netcat ii'
 DISTRO_GEMS='pry sinatra redis-objects cinch gmail'
+=======
+DISTRO_SYSTEM_DEBS='git emacs emacs-goodies-el vim ruby-full inotify-tools screen redis-server redis-tools openssh-server tor qrencode nmap arp-scan grep wpasupplicant macchanger tshark wifite netcat ii build-essential'
+DISTRO_GEMS='pry sinatra redis-objects cinch gmail sinatra-pubsub eventmachine rb-inotify'
+>>>>>>> d38a8c45eba32e707563a2b386de3e4134eeb661
 
 ## DISTRO_CONFIG
 # Output distribution configuration.
@@ -28,7 +33,11 @@ else
     DEBS="$DISTRO_SYSTEM_DEBS"
 fi
 
+<<<<<<< HEAD
 apt-get -y install ruby-full && gem install --no-ri --no-rdoc $DISTRO_GEMS
+=======
+apt-get -y install $DEBS && gem install --no-ri --no-rdoc $DISTRO_GEMS
+>>>>>>> d38a8c45eba32e707563a2b386de3e4134eeb661
 
 if [[ $1 == '--pretty' ]]; then
     cat << EOF > ~/.xinitrc
