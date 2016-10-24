@@ -8,13 +8,8 @@
 ## MOVE TO EXTERNAL CONFIG
 DISTRO_WM_DEB='cinnamon'
 DISTRO_GUI_DEBS="xinit xterm xorg tor chromium audacity electrum tilda scrot"
-<<<<<<< HEAD
-DISTRO_SYSTEM_DEBS='git emacs emacs-goodies-el vim ruby-full inotify-tools screen redis-server openssh-server tor qrencode nmap arp-scan grep wpasupplicant macchanger tshark wifite netcat ii'
-DISTRO_GEMS='pry sinatra redis-objects cinch gmail'
-=======
 DISTRO_SYSTEM_DEBS='git emacs emacs-goodies-el vim ruby-full inotify-tools screen redis-server redis-tools openssh-server tor qrencode nmap arp-scan grep wpasupplicant macchanger tshark wifite netcat ii build-essential'
 DISTRO_GEMS='pry sinatra redis-objects cinch gmail sinatra-pubsub eventmachine rb-inotify'
->>>>>>> d38a8c45eba32e707563a2b386de3e4134eeb661
 
 ## DISTRO_CONFIG
 # Output distribution configuration.
@@ -33,22 +28,15 @@ else
     DEBS="$DISTRO_SYSTEM_DEBS"
 fi
 
-<<<<<<< HEAD
-apt-get -y install ruby-full && gem install --no-ri --no-rdoc $DISTRO_GEMS
-=======
-apt-get -y install $DEBS && gem install --no-ri --no-rdoc $DISTRO_GEMS
->>>>>>> d38a8c45eba32e707563a2b386de3e4134eeb661
 
-if [[ $1 == '--pretty' ]]; then
-    cat << EOF > ~/.xinitrc
+cat << EOF > ../.xinitrc
 xrdb -merge ~/.Xresources
 #hash emacs && emacs -fs --visit ~/index.org &
 hash tilda && tilda &
 hash chromium && chromium --start-fullscreen &
 exec $DISTRO_WM_DEB
 EOF
-fi
-cat << EOF > ~/.screenrc
+cat << EOF > ../.screenrc
 shell -${SHELL}
 caption always "[ %t(%n) ] %w"
 defscrollback 1024
@@ -59,7 +47,87 @@ screen -t emacs 0 emacs -nw --visit ~/index.org
 screen -t bash 1 bash
 screen -t pry 2 pry
 EOF
-cat << EOF > ~/index.org
+cat << 'EOF' > ../.prompt
+Color_Off="\[\033[0m\]"       # Text Reset
+Black="\[\033[0;30m\]"        # Black
+Red="\[\033[0;31m\]"          # Red
+Green="\[\033[0;32m\]"        # Green
+Yellow="\[\033[0;33m\]"       # Yellow
+Blue="\[\033[0;34m\]"         # Blue
+Purple="\[\033[0;35m\]"       # Purple
+Cyan="\[\033[0;36m\]"         # Cyan
+White="\[\033[0;37m\]"        # White
+BBlack="\[\033[1;30m\]"       # Black
+BRed="\[\033[1;31m\]"         # Red
+BGreen="\[\033[1;32m\]"       # Green
+BYellow="\[\033[1;33m\]"      # Yellow
+BBlue="\[\033[1;34m\]"        # Blue
+BPurple="\[\033[1;35m\]"      # Purple
+BCyan="\[\033[1;36m\]"        # Cyan
+BWhite="\[\033[1;37m\]"       # White
+UBlack="\[\033[4;30m\]"       # Black
+URed="\[\033[4;31m\]"         # Red
+UGreen="\[\033[4;32m\]"       # Green
+UYellow="\[\033[4;33m\]"      # Yellow
+UBlue="\[\033[4;34m\]"        # Blue
+UPurple="\[\033[4;35m\]"      # Purple
+UCyan="\[\033[4;36m\]"        # Cyan
+UWhite="\[\033[4;37m\]"       # White
+On_Black="\[\033[40m\]"       # Black
+On_Red="\[\033[41m\]"         # Red
+On_Green="\[\033[42m\]"       # Green
+On_Yellow="\[\033[43m\]"      # Yellow
+On_Blue="\[\033[44m\]"        # Blue
+On_Purple="\[\033[45m\]"      # Purple
+On_Cyan="\[\033[46m\]"        # Cyan
+On_White="\[\033[47m\]"       # White
+IBlack="\[\033[0;90m\]"       # Black
+IRed="\[\033[0;91m\]"         # Red
+IGreen="\[\033[0;92m\]"       # Green
+IYellow="\[\033[0;93m\]"      # Yellow
+IBlue="\[\033[0;94m\]"        # Blue
+IPurple="\[\033[0;95m\]"      # Purple
+ICyan="\[\033[0;96m\]"        # Cyan
+IWhite="\[\033[0;97m\]"       # White
+BIBlack="\[\033[1;90m\]"      # Black
+BIRed="\[\033[1;91m\]"        # Red
+BIGreen="\[\033[1;92m\]"      # Green
+BIYellow="\[\033[1;93m\]"     # Yellow
+BIBlue="\[\033[1;94m\]"       # Blue
+BIPurple="\[\033[1;95m\]"     # Purple
+BICyan="\[\033[1;96m\]"       # Cyan
+BIWhite="\[\033[1;97m\]"      # White
+On_IBlack="\[\033[0;100m\]"   # Black
+On_IRed="\[\033[0;101m\]"     # Red
+On_IGreen="\[\033[0;102m\]"   # Green
+On_IYellow="\[\033[0;103m\]"  # Yellow
+On_IBlue="\[\033[0;104m\]"    # Blue
+On_IPurple="\[\033[10;95m\]"  # Purple
+On_ICyan="\[\033[0;106m\]"    # Cyan
+On_IWhite="\[\033[0;107m\]"   # White
+Time12h="\T"
+Time12a="\@"
+PathShort="\w"
+PathFull="\W"
+NewLine="\n"
+Jobs="\j"
+export PS1=$IGreen$Time12h$Color_Off'$(git branch &>/dev/null;\
+if [ $? -eq 0 ]; then \
+  echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
+  if [ "$?" -eq "0" ]; then \
+    # @4 - Clean repository - nothing to commit
+    echo "'$Green'"$(__git_ps1 " (%s)"); \
+  else \
+    # @5 - Changes to working tree
+    echo "'$IRed'"$(__git_ps1 " {%s}"); \
+  fi) '$BYellow$PathShort$Color_Off'\$ "; \
+else \
+  # @2 - Prompt when not in GIT repo
+  echo " '$Yellow$PathShort$Color_Off'\$ "; \
+fi)'
+EOF
+
+cat << EOF > ../index.org
 #+TITLE: Nomadic Linux.
 #+TODO: TODO(t!/@) ACTION(a!/@) WORKING(w!/@) | ACTIVE(f!/@) DELEGATED(D!/@) DONE(X!/@)
 #+OPTIONS: stat:t html-postamble:nil H:1 num:nil toc:t \n:nil ::nil |:t ^:t f:t tex:t
@@ -87,7 +155,7 @@ cat << EOF > ~/index.org
   Nomadic linux believes in staying organized.  Org mode keeps notes well organized. Nomadic linux also integrates lots of other tools to automate the process of exporting these files.
 EOF
 
-cat << EOF > ~/.emacs
+cat << EOF > ../.emacs
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -104,9 +172,7 @@ cat << EOF > ~/.emacs
  )
 EOF
 
-
-if [[ $1 == '--pretty' ]]; then
-cat << EOF > ~/.Xresources
+cat << EOF > ../.Xresources
 ! XTERM -----------------------------------------------------------------------
 XTerm*locale: true
 XTerm*termName:        xterm-256color
@@ -141,9 +207,8 @@ XTerm*color14:     #93e0e3
 XTerm*color15:     #ffffff
 EOF
 
-mkdir -p ~/.config/tilda
-
-cat <<EOF >> ~/.config/tilda/config_0
+mkdir -p ../.config/tilda
+cat <<EOF >> ../.config/tilda/config_0
 tilda_config_version = "1.1.12"
 # image = ""
 command = "screen"
@@ -227,14 +292,8 @@ double_buffer = true
 auto_hide_on_focus_lost = false
 auto_hide_on_mouse_leave = false
 EOF
-fi
 
-### LEAH - bashrc
-cat << 'EOF' >> ~/.bashrc
-function leah() { su -c "source /root/leah.sh && $*"; }
-EOF
-
-cat << 'EOF' > /root/leah.sh
+cat << 'EOF' > /root/.bashrc
 #!/bin/bash
 ANON="true"
 PS1="#> "
@@ -301,49 +360,36 @@ echo "############################"
 EOF
 
 cat <<EOF > /etc/issue
-The programs included with the Debian GNU/Linux system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.
-
-.#@@@@@@@@@@@@@@@@@@@@@@@@#.
-  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-   .@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.
-   #@@@@@@@@@@@ NOMADIC @@@@@@@@@@@@#
-   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-   @@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@@
-   @@@@@@@@    @@@@@@@@@@@@@@@@@@@@@@
-   @@@@@@@@    @@@@@@@@  +@@@@@@@@@@@
-   @@@@@@@@@  @@  @@@@    @@@@@@@@@@@
-   @@@@@@@@@@   ; +@@@    @@@@@@@@@@@
-   @@@@@@@@@+   .  @@@@  ;@  @@@@@@@@
-   @@@@@@@@@     + +@@@@      @@@@@@@
-   @@@@@@@@@        @@@@      @@@@@@@
-   @@@@@@@@@      @@@@@;    # ;@@@@@@
-   @@@@@@@:  +     @@@@       @@@@@@@
-   @@@@@@   #@     @@@  +    @@@@@@@@
-   @@@@@  @@@@,    @.  @@:   ;@@@@@@@
-   @@@@@@; @@@    @@  @@@+   @@@@@@@@
-   @@@@@@@ @@;    @@@ +@@    @@@@@@@@
-   @@@@@@@# @      @@@ @@    @@@@@@@@
-   @@@@@@@@    :   @@@.;.     @@@@@@@
-   @@@@@@@@@   @@  #@@@   @   @@@@@@@
-   @@@@@@@@@   @@,  @@@: .@@  @@@@@@@
-   @@@@@@@@@  #@@@  @@@.  @@, ;@@@@@@
-   @@@@@@@@@   @@@, +@@   @@@  @@@@@@
-   @@@@@@@@: . :@@@  @@   #@@: @@@@@@
-   @@@@@@@@@  @ @@@: @@ .# @@@  @@@@@
-   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-   #@@@@@@@@@@@@@ LINUX @@@@@@@@@@@@#
-   .@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.
-     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-           .#@@@@@@@@@@@@@@@@@@@@@@@@#.
-
-$DISTRO_NAME_PRETTY 
-Built on: Debian GNU/Linux $DEBIAN_RELEASE
+  ##############################
+ ######### NOMADIC LINUX ########
+##################################
+#@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@#
+#@@@@@@@    @@@@@@@@@@@@@@@@@@@@@#
+#@@@@@@@    @@@@@@@@  +@@@@@@@@@@#
+#@@@@@@@@  @@  @@@@    @@@@@@@@@@#
+#@@@@@@@@@   ; +@@@    @@@@@@@@@@#
+#@@@@@@@@+   .  @@@@  ;@  @@@@@@@#
+#@@@@@@@@     + +@@@@      @@@@@@#
+#@@@@@@@@        @@@@      @@@@@@#
+#@@@@@@@@      @@@@@;    # ;@@@@@#
+#@@@@@@:  +     @@@@       @@@@@@#
+#@@@@@   #@     @@@  +    @@@@@@@#
+#@@@@  @@@@,    @.  @@:   ;@@@@@@#
+#@@@@@; @@@    @@  @@@+   @@@@@@@#
+#@@@@@@ @@;    @@@ +@@    @@@@@@@#
+#@@@@@@# @      @@@ @@    @@@@@@@#
+#@@@@@@@    :   @@@.;.     @@@@@@#
+#@@@@@@@@   @@  #@@@   @   @@@@@@#
+#@@@@@@@@   @@,  @@@: .@@  @@@@@@#
+#@@@@@@@@  #@@@  @@@.  @@, ;@@@@@#
+#@@@@@@@@   @@@, +@@   @@@  @@@@@#
+#@@@@@@@: . :@@@  @@   #@@: @@@@@#
+#@@@@@@@@  @ @@@: @@ .# @@@  @@@@#
+##################################
+# No cost. No warranty. No help. #
+##################################
+ ########### Get Lost. ##########
+  ##############################
 EOF
 
+apt-get -y install $DEBS && gem install --no-ri --no-rdoc $DISTRO_GEMS
