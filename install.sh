@@ -392,4 +392,4 @@ cat <<EOF > /etc/issue
   ##############################
 EOF
 
-apt-get -y install $DEBS && gem install --no-ri --no-rdoc $DISTRO_GEMS
+aptitude -y install $DEBS && gem install --no-ri --no-rdoc $DISTRO_GEMS

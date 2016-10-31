@@ -72,9 +72,9 @@ begin
   init!
   
   configure do
-    set :port, 80
+    set :port, PORT || 80
     set :bind, '0.0.0.0'
-    set :session_secret, 'super secret'
+    set :session_secret, SECRET || Digest::SHA2.hexdigest(rand(2147483647).to_s(16))
     set :public_dir, '/var/www'
     set :app, {}
     set :svc, {}

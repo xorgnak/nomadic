@@ -1,0 +1,2 @@
+PORT=1080
+SECRET='shh'
