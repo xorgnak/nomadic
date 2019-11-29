@@ -28,15 +28,18 @@ else
     DEBS="$DISTRO_SYSTEM_DEBS"
 fi
 
-
-cat << EOF > ../.xinitrc
+if [[ $1 == '' ]]; then
+    echo "Type YeS to OVERWRITE your SUPER IMPORTANT local bash standard ~/ DOT FILES!!!"
+    read yn
+    if [[ $yn == 'YeS' ]]; then
+    cat << EOF > ~/.xinitrc
 xrdb -merge ~/.Xresources
 #hash emacs && emacs -fs --visit ~/index.org &
 hash tilda && tilda &
 hash chromium && chromium --start-fullscreen &
 exec $DISTRO_WM_DEB
 EOF
-cat << EOF > ../.screenrc
+cat << EOF > ~/.screenrc
 shell -${SHELL}
 caption always "[ %t(%n) ] %w"
 defscrollback 1024
@@ -47,7 +50,7 @@ screen -t emacs 0 emacs -nw --visit ~/index.org
 screen -t bash 1 bash
 screen -t pry 2 pry
 EOF
-cat << 'EOF' > ../.prompt
+cat << 'EOF' > ~/.nomad_prompt/git
 Color_Off="\[\033[0m\]"       # Text Reset
 Black="\[\033[0;30m\]"        # Black
 Red="\[\033[0;31m\]"          # Red
@@ -127,7 +130,7 @@ else \
 fi)'
 EOF
 
-cat << EOF > ../index.org
+cat << EOF > ~/index.org
 #+TITLE: Nomadic Linux.
 #+TODO: TODO(t!/@) ACTION(a!/@) WORKING(w!/@) | ACTIVE(f!/@) DELEGATED(D!/@) DONE(X!/@)
 #+OPTIONS: stat:t html-postamble:nil H:1 num:nil toc:t \n:nil ::nil |:t ^:t f:t tex:t
@@ -155,7 +158,7 @@ cat << EOF > ../index.org
   Nomadic linux believes in staying organized.  Org mode keeps notes well organized. Nomadic linux also integrates lots of other tools to automate the process of exporting these files.
 EOF
 
-cat << EOF > ../.emacs
+cat << EOF > ~/.emacs
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -172,7 +175,7 @@ cat << EOF > ../.emacs
  )
 EOF
 
-cat << EOF > ../.Xresources
+cat << EOF > ~/.Xresources
 ! XTERM -----------------------------------------------------------------------
 XTerm*locale: true
 XTerm*termName:        xterm-256color
@@ -207,8 +210,8 @@ XTerm*color14:     #93e0e3
 XTerm*color15:     #ffffff
 EOF
 
-mkdir -p ../.config/tilda
-cat <<EOF >> ../.config/tilda/config_0
+mkdir -p ~/.config/tilda
+cat <<EOF >> ~/.config/tilda/config_0
 tilda_config_version = "1.1.12"
 # image = ""
 command = "screen"
@@ -293,29 +296,29 @@ auto_hide_on_focus_lost = false
 auto_hide_on_mouse_leave = false
 EOF
 
-cat << 'EOF' > /root/.bashrc
+cat << 'EOF' > ~/.nomad_prompt/tools
 #!/bin/bash
-ANON="true"
+ANON="false"
 PS1="#> "
 function discover() {
     IP_REGEXP="(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
     IPs=`sudo arp-scan --localnet | grep -E -o $IP_REGEXP`
-    nmap -O -F -v $IPs
+    sudo nmap -O -F -v $IPs
 }
 function wifi() {
     WPA=/etc/wpa_supplicant/$1.conf
     if [[ $ANON == "true" ]]; then
 	echo "Randomizing MAC address..."
-	macchanger -r wlan0
+	sudo macchanger -r wlan0
     fi
     if [[ $1 != ''  ]]; then
 	if [[ $2 != '' ]]; then
 	    echo "Generating $1 configuration..."
 	    if [[ $3 != '' ]]; then
 		echo "Generating Network configuration..."
-		wpa_passphrase "$2" "$3" > $WPA
+		sudo wpa_passphrase "$2" "$3" > $WPA
 	    else
-		echo "network={
+		sudo echo "network={
 ssid="$2"
 key_mgmt=NONE
 }
@@ -327,21 +330,21 @@ key_mgmt=NONE
 	cat $WPA
 	### 3
 	echo "Starting Wireless Driver..."
-	wpa_supplicant -Dwext -iwlan0 -c$WPA &
+	sudo wpa_supplicant -Dwext -iwlan0 -c$WPA &
 	echo "Starting DHCP Client..."
-	dhclient -v -4 wlan0
+	sudo dhclient -v -4 wlan0
     fi    
 }
 
 function kill_all_wifi() {
-    pkill NetworkManager;
-    pkill wpa_supplicant;
-    pkill dhclient;
+    sudo pkill NetworkManager;
+    sudo pkill wpa_supplicant;
+    sudo pkill dhclient;
 }
 
 function svc() {
   pkill tor
-cat <<END >> /etc/tor/torrc
+sudo cat <<END >> /etc/tor/torrc
 HiddenServiceDir /var/lib/tor/$1/
 HiddenServicePort $1 127.0.0.1:$1
 END
@@ -350,16 +353,18 @@ END
 }
 function mnt() {
     mkdir /mnt/$1;
-    mount /dev/$1 /mnt/$1;
+    sudo mount /dev/$1 /mnt/$1;
     echo "DEVICE: /dev/$1 MOUNTED: /mnt/$1";
     ls -lha /mnt/$1;
 }
-echo "############################"
-echo "# Dont do anything stupid. #"
-echo "############################"
 EOF
-
-cat <<EOF > /etc/issue
+fi
+elif [[ $1 == '-h' ]] || [[ $1 == '--help' ]]; then
+    echo "usage: ./nomadic -> install nomadic configuration files locally."
+    echo "usage: sudo ./nomadic --server -> install nomadic packages."
+    echo "usage: sudo ./nomadic --pretty -> install nomadic packages and desktop."
+else
+    cat <<EOF > /etc/issue
   ##############################
  ######### NOMADIC LINUX ########
 ##################################
@@ -391,5 +396,5 @@ cat <<EOF > /etc/issue
  ########### Get Lost. ##########
   ##############################
 EOF
-
-aptitude -y install $DEBS && gem install --no-ri --no-rdoc $DISTRO_GEMS
+    apt -y install $DEBS && gem install --no-ri --no-rdoc $DISTRO_GEMS
+fi
