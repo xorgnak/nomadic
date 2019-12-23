@@ -1,3 +1,4 @@
+load 'lib/user.rb'
 class Cab < User
   include Redis::Objects
   sorted_set :users

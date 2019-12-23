@@ -11,5 +11,5 @@ class Reward
   end
   def id; @id; end
 end
-end
+
 
