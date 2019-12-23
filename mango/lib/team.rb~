@@ -1,0 +1,11 @@
+class Team
+  include Redis::Objects
+  def initialize t
+    @id = "team:#{t}"
+  end
+  def id; @id; end
+  hash_key :attrs
+  hash_key :titles
+  set :users
+  sorted_set :hits
+end

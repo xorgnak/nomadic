@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>twitter.rb~ - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../bin/init.html">init</a>
+  
+    <li><a href="../bin/init~.html">init~</a>
+  
+    <li><a href="../config_json.html">config.json</a>
+  
+    <li><a href="../config_json~.html">config.json~</a>
+  
+    <li><a href="../lib/pipeline_rb~.html">pipeline.rb~</a>
+  
+    <li><a href="../lib/stats_rb~.html">stats.rb~</a>
+  
+    <li><a href="../lib/twitter_rb~.html">twitter.rb~</a>
+  
+    <li><a href="../mango.html">mango</a>
+  
+    <li><a href="../mango~.html">mango~</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page lib/twitter.rb~">
+
+<p>require &#39;tw&#39;</p>
+
+<p>class <a href="../TwitterClient.html">TwitterClient</a></p>
+
+<pre class="ruby"><span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>
+  <span class="ruby-ivar">@twitter</span> = <span class="ruby-constant">Tw</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@twitter</span>.<span class="ruby-identifier">auth</span> <span class="ruby-constant">CONF</span>[<span class="ruby-string">&#39;TWITTER_USER&#39;</span>]
+<span class="ruby-keyword">end</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">[]</span> <span class="ruby-identifier">k</span>
+  <span class="ruby-ivar">@twitter</span>.<span class="ruby-identifier">search</span> <span class="ruby-identifier">k</span>
+<span class="ruby-keyword">end</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">tweet</span> <span class="ruby-identifier">m</span>
+  <span class="ruby-ivar">@twitter</span>.<span class="ruby-identifier">tweet</span> <span class="ruby-identifier">m</span>
+<span class="ruby-keyword">end</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">twitter</span>
+  <span class="ruby-ivar">@twitter</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end</p>
+
+<p>@learning = {} def learn f</p>
+
+<pre class="ruby"><span class="ruby-ivar">@learning</span>[<span class="ruby-identifier">f</span>] = <span class="ruby-constant">Process</span>.<span class="ruby-identifier">detach</span>( <span class="ruby-identifier">fork</span> {
+                  <span class="ruby-identifier">t</span> = <span class="ruby-constant">Tw</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span><span class="ruby-operator">::</span><span class="ruby-constant">Stream</span>.<span class="ruby-identifier">new</span>
+                  <span class="ruby-identifier">t</span>.<span class="ruby-identifier">filter</span>(<span class="ruby-identifier">f</span>, <span class="ruby-value">language:</span> <span class="ruby-string">&#39;english&#39;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@cooccour</span>.<span class="ruby-identifier">tag</span>(<span class="ruby-identifier">m</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">downcase</span>) }
+                }
+              )
+</pre>
+
+<p>end</p>
+
+<p>@tw = <a href="../TwitterClient.html#method-c-new">TwitterClient.new</a></p>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.0.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
