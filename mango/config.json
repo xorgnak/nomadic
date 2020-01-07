@@ -1,4 +1,9 @@
 {
     "mode": "development",
-    "TWITTER_USER": "unkncat"
+    "TWITTER_USER": "unkncat",
+    "phone": "6155926675",
+    "battlecab": {
+	"team": 0,
+	"lvl": 9
+    }
 }
