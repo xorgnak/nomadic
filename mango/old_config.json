@@ -1,0 +1,107 @@
+{
+    "mode": "development",
+    "TWITTER_USER": "unkncat",
+    "phone": "6155926675",
+    "conf": {
+	"submit": "ENLIST!",
+	"background": "battlecab/unclesam.jpg",
+	"app": "battlecab"
+    },
+    "fields": {
+	"public": {
+	    "user": ["tel", "phone number", ""]
+	},
+	"private": {
+	    "message": ["text", "send a message...", ""]
+	}
+    },
+    "webconfig": {
+	"title": "US CENTIDEACOM DEN",
+	"placeholder": "> ",
+	"backstory": ["BATTLECABS<br><br><br>Episode 0<br><br><br>A couple days ago and a few blocks from here...<br>Inter-Dimensional computer viruses or 🦠< started appearing.  You can find 🦠< by pointing your zapper around you.",
+		      "When a light starts blinking, you\'ve found one.  To wipe the BUG, use a 🧪.  We\'ll try to keep you resupplied as best we can, but we need you to carefully inspect the behavior of the BUG so you don\'t waste",
+		      " any un-necessary 🧪.  Because of time travel, we\'ve already spent $26e18 over the last 400 years to generate the 🧪  we have.  Save every drop!  Every time you use a 🧪, to wipe a 🦠< you feed more interdimensional",
+		      " computervirus RNA or 🧬  into the undergound NASA supercomputers we have working on the decryption we need to make an effective 🦠< of our own!<br>So as not to raise alarm, pedicab drivers in major cities have been",
+		      " tasked with carrying out the eradication process. The safty and security of this fair city, the country, the world, even our very DIMENSION are under threat and only you can help!<br>We've developed treatments for",
+		      " the infections that exist, but we're still trying to develop our own viruses to infect their systems.  Until then, all we can do is combat the 🦠< we find and collect as much 🧬< as we can.  We\'ve had the world\'s",
+		      " best and brightest working on this system for the last few years because we\'ll soon develop time travel which allowed us to get a head start on the work we now know was for the bug infestation.  The universe needs you!"]
+	
+	"hello": "Welcome Recruit! You've been drafted into the Inter-Dimensional Emergency Army, USA division, DEN company.  Put your phone number in below to begin your registration process.", 
+	"stats": { 
+	    "bug": ["🦠", 0],
+	    "tube": ["🧪", 0],
+	    "rna": ["🧬", 0],                                
+	    "virus": ["🧴", 0]                                                                                                                                                              
+	},
+	"ranks": {
+	    "recruit": ["-", 0, 2],
+	    "private": ["+", 2, 5],
+	    "corporal": ["*", 5, 9],
+	    "sergent": ["^", 9, 15],
+	    "leiutenent": ["|", 15, 20],
+	    "captain": ["*", 20, 25],
+	    "major": ["%", 25, 30],
+	    "colonel": ["$", 30, 40],
+	    "general": ["#", 40, 50],
+	    "agent": ["!", 50, 100]
+	},
+	"messages": {
+	    0: "<%= StarWars.scroll(CONF['/']['backstory'], padding: 4000) %>"
+	}
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    "battlecab": {
+	"title": "Inter - Dimentional Expedition Army",
+	"overview": ["Hunt and trap the interdimentional aliens infesting the country."],
+	"backstory": ["Find aliens with the cannon, then trap them with button 1."],
+	"difficulty": 2,
+	"mode": "stream",
+	"stats": {
+	    "heart": ["❤", 1, "Available lives."],
+	    "rocket": ["🚀", 0, "Available Ammunition."],
+	    "medal": ["🎖 ", 0, "Rewards for mission performance."]
+	},
+	"levels": {
+	    "pips": {
+		"enlisted": ["⬤", 1, 9, "Raw RECRUITS.  The players in the game."],
+		"officer": ["◯", 10, 19, "Real life NPCs.  Pedicabbers, Couriers, and others."],
+		"general": ["✪", 20, 29, "'God mode' characters.  Able to drive sub plots and storylines."]
+	    },
+	    "classes": {
+		"trainee": ["🔥", 10, "The Training corps."],
+		"recon": ["🕶", 2,"Leading the way."],
+		"cavalry": ["🐴", 5, "Getting there."],
+		"catering": ["🍗", 20, "What's for dinner."]
+	    }
+	},
+	"messages": {                                                                                                                                                                        
+	    "comment": ["<%= h[:comment] %>", "grey"],
+	    "game": ["Hello, <%= h[:user] %>.", "black"],                                                                                                       
+	    "user": ["Welcome, <%= h[:user] %>", "black"],                                                                                                                                            
+	    "wounded": ["You were hit by <%= h[:from] %>!", "yellow"],                                    
+	    "dead": ["You were killed by <%= h[:from] %>!", "red"],                                                                                          
+	    "hit": ["You shot <%= h[:to] %>!", "yellow"],                                                                                           
+	    "kill": ["You killed <%= h[:to] %>", "red"],                                                                                                      
+	    "heal": ["You found <%= h[:find] %>", "green"],                                                                                                        
+	    "level": ["You are now level <%= h[:level] %>!", "black"]                                                                                                    
+	}
+    }
+}

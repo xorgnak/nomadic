@@ -1,7 +1,17 @@
 <html>
-<head>
-</head>
-<body>
-<%= yield %>
-</body>
-</html>
+  <head>
+    <style>
+      <%= File.read("theme.css") %>
+    </style>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <form id="form">
+      <%= yield %>
+      </form>
+  </body>
+  <script type="text/javascript">
+    <%= erb :init %>
+  </script>
+  </html>

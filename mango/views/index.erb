@@ -1,1 +1,13 @@
-<h1>mango dev conf</h1>
+<%= Camo.js(bg: true, canvas: true) %>
+<h1 id="title" class="neon">U.S.I.D.E.A.C.O</h1>                                                                                          
+<h2 id="stats"><%= stats %></h2>                                        
+<%= rank %>                                                              
+<div id="msgs">
+  <h3 id="message"></h3>
+  <div id="content"></div>
+</div>                                                                             
+<datalist id="cmds">
+  <%= cmds %>
+</datalist>
+<input type="text" id="input" name="input" list="cmds" placeholder="<%= session[:user] %>">                                                             
+<input type="submit" id="submit" name="update" value="">

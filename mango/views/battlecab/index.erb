@@ -1,0 +1,23 @@
+<style>
+html { 
+  background: url(<%= settings.conf[:subdomain] %>/unclesam.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+input {
+      font-size: xx-large;
+      width: 100%;
+}
+
+button {
+      font-size: xx-large;
+}
+</style>
+<code><%= session[:user] %></code>
+<form id="end" action="/" method="post">
+<input type='tel' name="user" placeholder="phone number">
+<button type="submit" name="do">ENLIST</button>
+</form>
+<script>console.log("works.");</script>

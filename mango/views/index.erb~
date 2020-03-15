@@ -1,1 +1,19 @@
-<h1>mango dev conf</h1>
+<% CONF %>
+<h1 id="head"><span id="title"><%= CONF['title'] %></span></h1>                                                                                                                                                                                                                                                               
+<h2 id="stats"><%= stats %></h2>                                                                                                                                                                                                                                <h3 id="rank">
+<span class="rank spec"></span>
+<span class="rank pips"></span>
+<span class="rank name"></span>
+<span class="rank pips"></span>
+<span class="rank spec"></span>
+</h3>                                                              
+<div id="msgs">                                                                                                                                                                                                                                                                                                             
+    <h3 id="message"></h3>                                                                                                                                                                                                                                                                                                    
+    <div id="content"></div>                                                                                                                                                                                                                                                                                                  
+  </div>                                                                                                                                                                                                                                                                                                                      
+  <form id="foot">                                                                                                                                                                                                                                                                                                            
+    <datalist id="cmds">                                                                                                                                                                                                                                                                                                      
+      <%= cmds %>                                                                                                                                                                                                                                                                                                             
+    </datalist>                                                                                                                                                                                                                                                                                                               
+    <input type="text" id="input" list="cmds" placeholder="<%= CONF['placeholder'] %>"></input>                                                                                                                                                                                                                               
+  </form>                                                                                                                                                                                                                                                                                                                     
