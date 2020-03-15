@@ -1,6 +1,14 @@
-require 'redis-objects'
+require 'cinch'
 
+bot = Cinch::Bot.new do
+  configure do |c|
+    c.server = "irc.freenode.net"
+    c.channels = ["#bc-DEN"]
+  end
 
-Redis.current = Redis.new(:url => 'redis://5ozorojr5rw4zeaivsuugbpx5i25fxrgxpjmo3kd4mdt44rl4upcubyd.onion:6379')
+  on :message do |m|
+    Redis.publish "irc", "#{m.methods}"
+  end
+end
 
-Process.detach( fork { Redis.new.monitor {|e| puts "|-> #{e}" } } )
+bot.start
