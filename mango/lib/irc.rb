@@ -41,7 +41,7 @@ end
 
 @bot = Cinch::Bot.new do
   configure do |c|
-    c.nick = ONION[0..8]
+    c.nick = "Vx" + ONION[0..8]
     c.server = "irc.freenode.net"
     c.channels = ["#bc-DEN"]
   end
@@ -53,6 +53,6 @@ end
   end
 end
 
-#def bot_start
+def bot_start
   @bot.start
-#end
+end

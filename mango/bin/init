@@ -7,4 +7,5 @@ if ARGF.argv[0] == '--monitor'
 end
 CONF = JSON.parse(File.read('config.json'))
 Dir['lib/*'].each {|e| load e }
+load "start.rb"
 binding.pry
