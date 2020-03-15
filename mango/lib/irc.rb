@@ -1,5 +1,6 @@
 require 'cinch'
 
+
 def handle_message m
   @mh = { raw: m, words: @words }
   @words = m.split(" ")
@@ -40,9 +41,9 @@ end
 
 @bot = Cinch::Bot.new do
   configure do |c|
-    c.nick = "cat"
-    c.server = "localhost"
-    c.channels = ["#unkn"]
+    c.nick = ONION[0..8]
+    c.server = "irc.freenode.net"
+    c.channels = ["#bc-DEN"]
   end
   on :private do |m|
     m.reply handle_irc_message(m, private: true)
@@ -52,6 +53,6 @@ end
   end
 end
 
-def bot_start
+#def bot_start
   @bot.start
-end
+#end

@@ -1,6 +1,7 @@
 require 'json'
 require 'pry'
 require 'redis-objects'
+ONION = File.read("/var/lib/tor/services/hostname").chomp!.gsub(".onion", '')
 if ARGF.argv[0] == '--monitor'
   Process.detach( fork { Redis.new.monitor {|e| puts "> #{e}" } } )
 end
