@@ -1,0 +1,8 @@
+$(function() {                                                                       
+    var ws = new WebSocket("wss://localhost/");                                     
+    ws.onopen = function(e) { ws.send("open: " + e); };                             
+    ws.onmessage = function(e) {                                                    
+        var j = JSON.parse(e.data);                                                 
+        console.log("WS:", e);                                                      
+    };                                                                               
+});

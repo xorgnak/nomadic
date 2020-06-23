@@ -1,0 +1,3 @@
+rm lib/*~
+rm bin/*~
+ruby bin/init $*

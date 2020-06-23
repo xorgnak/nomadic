@@ -1,0 +1,38 @@
+$(function() {
+//    var dom = document.domain;
+//    var soc = "ws://" + dom + "/";
+    //    var ws = new WebSocket(soc);
+    var ws = new WebSocket("ws://localhost/");
+    ws.onopen = function(e) { ws.send(JSON.stringify(e)); };
+    ws.onmessage = function(e) {
+        var j = JSON.parse(e.data);
+	if (j.img) {
+	    var c0 = "div";
+	    var c1 = "h3";
+	} else {
+	    var c0 = "h3";
+	    var c1 = "span";
+	}
+	if (j.msg) {
+	    var x = "<" + c0 + ">";
+	    x += "<span class='material-icons icon'>" + j.icon + "</span>";
+	    x += "<" + c1 + " class='from' ";
+	    x += "style='backgroumd-color: " + j.color + "'>";
+	    x += j.from + "</" + c1 + ">";
+	    if (j.file) {
+		x += "<a class='file material-icons' href='" + j.file + "'>save</a>";
+		x += "<img src='";
+		x += j.file
+		x += "'>";
+	    }
+	    x += "<" + c1 + " class='msg'>" + j.msg + "</" + c1 + ">";
+	    x += "</" + c0 + ">";
+	    $("#msgs").prepend(x);
+        }
+        console.log("WS:", e);
+    };
+    $("button").on('click', function(e) { 
+	e.preventDefault();
+	ws.send(JSON.stringify($("#form").serializeArray()));
+    });
+});

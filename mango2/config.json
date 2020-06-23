@@ -1,0 +1,35 @@
+{
+    "mode": "development",
+    "TWITTER_USER": "unkncat",
+    "phone": "6155926675",
+    "youtube": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube-nocookie.com/embed/N61k1NYdgf4\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>",
+    "webconfig": {
+	"backstory": [
+	    "BATTLECABS<br><br><br>Episode 0<br><br><br>A couple days ago and a few blocks from here...<br>Inter-Dimensional computer viruses or 🦠< started appearing.  You can find 🦠< by pointing your zapper around you.",
+	    "When a light starts blinking, you've found one.  To wipe the BUG, use a 🧪.  We'll try to keep you resupplied as best we can, but we need you to carefully inspect the behavior of the BUG so you don't waste",
+	    " any un-necessary 🧪.  Because of time travel, we've already spent $26e18 over the last 400 years to generate the 🧪  we have.  Save every drop!  Every time you use a 🧪, to wipe a 🦠< you feed more interdimensional",
+	    " computervirus RNA or 🧬  into the undergound NASA supercomputers we have working on the decryption we need to make an effective 🦠< of our own!<br>So as not to raise alarm, pedicab drivers in major cities have been",
+	    " tasked with carrying out the eradication process. The safty and security of this fair city, the country, the world, even our very DIMENSION are under threat and only you can help!<br>We've developed treatments for",
+	    " the infections that exist, but we're still trying to develop our own viruses to infect their systems.  Until then, all we can do is combat the 🦠< we find and collect as much 🧬< as we can.  We've had the world's",
+	    " best and brightest working on this system for the last few years because we'll soon develop time travel which allowed us to get a head start on the work we now know was for the bug infestation.  The universe needs you!"
+	],
+	"hello": "Welcome Recruit! You've been drafted into the Inter-Dimensional Emergency Army, USA division, DEN company.  Put your phone number in below to begin your registration process.", 
+	"stats": { 
+	    "bug": ["/bug.png", 0],
+	    "vaccine": ["/vaccine.png", 0],
+	    "rna": ["/rna.png", 0],                                
+	    "virus": ["/virus.png", 0]                                                                                                                                                              
+	},
+	"ranks": {
+	    "enlisted": [1, 10],
+	    "officer": [11, 20],
+	    "agent": [21, 100]
+	},
+	"messages": {
+	    "0": "Hello <%= session[:user] %>! You're just a number here soldier!  Read the <a href='/backstory'>backstory</a> if you want but your rider can get the the breakdown.  Good Luck out there!"
+	},
+	"credits": {
+	    "icons": "<div>Icons made by <a href=\"https://www.flaticon.com/authors/freepik\" title=\"Freepik\">Freepik</a> from <a href=\"https://www.flaticon.com/\" title=\"Flaticon\">www.flaticon.com</a></div>"
+	}
+    }
+}
