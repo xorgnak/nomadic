@@ -1,7 +1,16 @@
 <!DOCTYPE html>                                                              
 <html>                                                                       
   <head>                                                                     
-    <title>NOMADIC OS</title>                                                
+    <title>NOMADIC OS</title>
+	  <style>html body { width: 100%; margin:0; }
+#input { width: 100%; text-align: center; }
+.l { float: left; }
+.r { float: right;}
+#input { text-align: center; }
+#input > * { vertical-align: middle; font-size: large; margin: 0; }
+.in { max-width: 65%; }
+#do { min-height: 30%; }
+	  </style>
     <meta content="width=device-width, height=device-height, initial-scale=1,
  maximum-scale=1, user-scalable=no, minimal-ui=no" name="viewport">          
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Mat
@@ -201,11 +210,7 @@ function onConnectionLost(responseObject) {
         $("#do").val(v);                                                   
     });
 });
-
-Online protection is OFF! Turn On
 	  </script>
-    <link rel="stylesheet" type="text/css" href="standard.css">
-    <link rel="manifest" href="localhost/webmanifest">
   </head>
   <body>
     <form>
