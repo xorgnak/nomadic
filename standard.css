@@ -1,0 +1,8 @@
+html body { width: 100%; margin:0; }
+#input { width: 100%; text-align: center; }
+.l { float: left; }
+.r { float: right;}
+#input { text-align: center; }
+#input > * { vertical-align: middle; font-size: large; margin: 0; }
+.in { max-width: 65%; }
+#do { min-height: 30%; }
