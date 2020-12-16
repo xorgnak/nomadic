@@ -14,8 +14,38 @@ Nomadic runs a webserver to provide interfacing to the tools provided.  The menu
 After the web app loads, all further communications from and to the browser pass across an mqtt networks.  Services listen to mqtt traffic and push their results to the browser across the same network.  This provides a lightweight single layer communications protocol capable of managing a user's state across all interfaces in real time.  
 
 ### Usage
+#### connecting to wifi
 ```
-usage: ./cabage/work [connect|push|pull|browser|user|wifi|hack|shark|fingerprint|scanme|watch]
+./cabage/work wifi
+```
+#### connecting to a server
+```
+./cabage/work connect <the server you are connecting to> 
+```
+#### watching network traffic
+```
+./work shark
+```
+#### seeing what your device looks like from the outside
+```
+./work scanme
+```
+#### watch file creation and publish events
+```
+./work /path/to/directory
+```
+#### borrow your neighbors wifi
+```
+./work hack
+```
+#### update cabage
+```
+./work pull && ./now
+```
+
+#### quick reference
+```
+usage: ./work [connect|push|pull|browser|user|wifi|hack|shark|fingerprint|scanme|watch]
  connect <domain>
  push <your commit message>
  pull
