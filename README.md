@@ -1,3 +1,6 @@
+[![made-with-ruby](https://img.shields.io/badge/Made%20with-Ruby-1f425f.svg)](https://rubylang.org/)
+[![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/)
+[![GitHub license](https://img.shields.io/github/license/xorgnak/nomadic.svg)](https://github.com/xorgnak/nomadic/blob/master/LICENSE)
 ### Installation
 1. get linux running.
 1. get git running.
@@ -31,13 +34,9 @@ games and fun.
 ##### for home
 smart mirrors, tvs, etc.
 ### stats
-[![nomadic github stats](https://github-readme-stats.vercel.app/api?username=xorgnak&theme=radical&layout=compact)](https://github.com/xorgnak/nomadic)
-### languages
-![1](https://github-readme-stats.vercel.app/api/top-langs/?username=xorgnak&theme=radical&layout=compact)
-### badges
-[![made-with-ruby](https://img.shields.io/badge/Made%20with-Ruby-1f425f.svg)](https://rubylang.org/)
-[![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/)
-[![GitHub license](https://img.shields.io/github/license/xorgnak/nomadic.svg)](https://github.com/xorgnak/nomadic/blob/master/LICENSE)
+[![nomadic github stats](https://github-readme-stats.vercel.app/api?username=xorgnak&theme=radical&show_icons=true&layout=compact)](https://github.com/xorgnak/nomadic)
+![1](https://github-readme-stats.vercel.app/api/top-langs/?username=xorgnak&theme=radical&show_icons=true&layout=compact)
+![1](https://github-readme-stats.vercel.app/api/top-langs/wakatime?username=xorgnak&theme=radical&show_icons=true&layout=compact)
 
 
 
