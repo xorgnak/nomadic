@@ -34,9 +34,12 @@ games and fun.
 ##### for home
 smart mirrors, tvs, etc.
 ### stats
+####
 [![nomadic github stats](https://github-readme-stats.vercel.app/api?username=xorgnak&theme=radical&show_icons=true&layout=compact)](https://github.com/xorgnak/nomadic)
-![1](https://github-readme-stats.vercel.app/api/top-langs/?username=xorgnak&theme=radical&show_icons=true&layout=compact)
-![1](https://github-readme-stats.vercel.app/api/top-langs/wakatime?username=xorgnak&theme=radical&show_icons=true&layout=compact)
+#### 
+![1](https://github-readme-stats.vercel.app/api/top-langs/?username=xorgnak&theme=radical&layout=compact)
+#### 
+![1](https://github-readme-stats.vercel.app/api/top-langs/wakatime?username=xorgnak&theme=radical&layout=compact)
 
 
 
