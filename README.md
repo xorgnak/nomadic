@@ -1,7 +1,7 @@
 [![made-with-ruby](https://img.shields.io/badge/Made%20with-Ruby-1f425f.svg)](https://rubylang.org/)
 [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/)
-[![GitHub license](https://img.shields.io/github/license/xorgnak/nomadic.svg)](https://github.com/xorgnak/nomadic/blob/master/LICENSE)
-[![BADGINATOR](https://badginator.herokuapp.com/xorgnak/nomadic.svg)](https://github.com/xorgnak/nomadic)
+[![made-with-javascript](https://img.shields.io/badge/Made%20with-Javascript-1f425f.svg)](https://www.javascript.com)
+[![Open Source Love png2](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
 ### Installation
 1. get linux running.
 1. get git running.
