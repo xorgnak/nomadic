@@ -1,49 +1,57 @@
+# NOMADIC
 [![made-with-ruby](https://img.shields.io/badge/Made%20with-Ruby-1f425f.svg)](https://rubylang.org/)
 [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/)
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-Javascript-1f425f.svg)](https://www.javascript.com)
 [![made-with-c](https://img.shields.io/badge/Made%20with-C-1f425f.svg)](https://clang.org/)
 [![made-with-html](https://img.shields.io/badge/Made%20with-html-1f425f.svg)](https://html.org/)
-### GET STARTED NOW
+## GET STARTED NOW
 `git clone https://github.com/xorgnak/nomadic && cd nomadic && ./run`
-#### That's it.
+### That's it.
 [<img src='https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&slug=maxcatman&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff'>](https://www.buymeacoffee.com/maxcatman)
 
-### How it works
+
+## What it is
+- It's linux folks.  Adding Nomadic to your Debian based linux installation will give you a solid set of tools useful for general computing as well as development.
+- Nomadic is designed to allow you to use any display as a marketing tool for your brand.  The customer interaction interface also functions as a simple point of sale system, prompting your customer with an invoice and button to pay via venmo.
+- Nomadic makes heavy use of the org-mode note taking system built into the emacs text editor.  It allows free form notes to contain formulas, lists, and tables.  Further information can be found [here](https://org-mode.org).
+- Nomadic does waste muct time or space with games, but it does ship with an nes emulator and a mush server.
+
+## how it works
 Nomadic linux provides a set of organizational tools which take advantage of local, IoT, and cloud resources.  The web interface provides a simple way to use the tools to get things done and more.  
 Nomadic runs a webserver to provide interfacing to the tools provided.  The menu provodes other interfaces can be opened to provide bilboarding and customer impact functions as well as other useful tools.  
 After the web app loads, all further communications from and to the browser pass across an mqtt networks.  Services listen to mqtt traffic and push their results to the browser across the same network.  This provides a lightweight single layer communications protocol capable of managing a user's state across all interfaces in real time.  
 
-### Usage
-#### connecting to wifi
+## how you use it
+### connecting to wifi
 ```
 ./cabage/work wifi
 ```
-#### connecting to a server
+### connecting to a server
 ```
 ./cabage/work connect <the server you are connecting to> 
 ```
-#### watching network traffic
+### watching network traffic
 ```
 ./work shark
 ```
-#### seeing what your device looks like from the outside
+### seeing what your device looks like from the outside
 ```
 ./work scanme
 ```
-#### watch file creation and publish events
+### watch file creation and publish events
 ```
 ./work /path/to/directory
 ```
-#### borrow your neighbors wifi
+### borrow your neighbors wifi
 ```
 ./work hack
 ```
-#### update cabage
+### update cabage
 ```
 ./work pull && ./now
 ```
 
-#### quick reference
+## quick reference
 ```
 usage: ./work [connect|push|pull|browser|user|wifi|hack|shark|fingerprint|scanme|watch]
  connect <domain>
@@ -59,7 +67,7 @@ usage: ./work [connect|push|pull|browser|user|wifi|hack|shark|fingerprint|scanme
  watch <dir>
 ```
 
-#### app server
+## app server
 This is the server which hosts the web interfaces.  Nomadic will start it when the system starts, but sometimes you may need to start it locally.
 ```
 usage: ./cabage/now [quiet] [local]
@@ -67,23 +75,10 @@ usage: ./cabage/now [quiet] [local]
  local: runs cabage without ruby virtual machine support.  Helpful for development.
 ```
 
-### Project Info
-About the project...
-#### Use cases
-what is this for anyways?
-##### a personal computer
-it's linux folks.  Adding Nomadic to your Debian based linux installation will give you a solid set of tools useful for general computing as well as development.
-##### a business pos and bilboard display
-Nomadic is designed to allow you to use any display as a marketing tool for your brand.  The customer interaction interface also functions as a simple point of sale system, prompting your customer with an invoice and button to pay via venmo.
-##### for school
-Nomadic makes heavy use of the org-mode note taking system built into the emacs text editor.  It allows free form notes to contain formulas, lists, and tables.  Further information can be found [here](https://org-mode.org).
-##### for kids
-Nomadic does waste muct time or space with games, but it does ship with an nes emulator and a mush server.
-
-### stats
-####
+## stats
+###
 [![1](https://github-readme-stats.vercel.app/api?username=xorgnak&theme=radical&show_icons=true&layout=compact)](https://github.com/xorgnak/nomadic)
-#### 
+### 
 ![1](https://github-readme-stats.vercel.app/api/top-langs/?username=xorgnak&theme=radical&layout=compact)
-####
+###
 [![Open Source Love png2](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
