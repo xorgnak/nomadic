@@ -3,33 +3,40 @@
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-Javascript-1f425f.svg)](https://www.javascript.com)
 [![made-with-c](https://img.shields.io/badge/Made%20with-C-1f425f.svg)](https://clang.org/)
 [![made-with-html](https://img.shields.io/badge/Made%20with-html-1f425f.svg)](https://html.org/)
-### Installation
-1. get linux running.
-1. get git running.
-1. clone nomadic.
-1. run `cd nomadic && ./run`
-
+### GET STARTED NOW
+`git clone https://github.com/xorgnak/nomadic && cd nomadic && ./run`
+#### That's it.
 [<img src='https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&slug=maxcatman&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff'>](https://www.buymeacoffee.com/maxcatman)
 
 ### How it works
 Nomadic linux provides a set of organizational tools which take advantage of local, IoT, and cloud resources.  The web interface provides a simple way to use the tools to get things done and more.  
-
-#### High Level
 Nomadic runs a webserver to provide interfacing to the tools provided.  The menu provodes other interfaces can be opened to provide bilboarding and customer impact functions as well as other useful tools.  
-
-#### Lox level
 After the web app loads, all further communications from and to the browser pass across an mqtt networks.  Services listen to mqtt traffic and push their results to the browser across the same network.  This provides a lightweight single layer communications protocol capable of managing a user's state across all interfaces in real time.  
 
 ### Usage
-Nomadic is made up of two tools which provide access to the local nomadic services.
+```
+usage: ./cabage/work [connect|push|pull|browser|user|wifi|hack|shark|fingerprint|scanme|watch]
+ connect <domain>
+ push <your commit message>
+ pull
+ browser
+ user <working username>
+ wifi
+ hack
+ shark
+ fingerprint <domain>
+ scanme
+ watch <dir>
+```
+
 #### app server
+This is the server which hosts the web interfaces.  Nomadic will start it when the system starts, but sometimes you may need to start it locally.
 ```
 usage: ./cabage/now [quiet] [local]
+ quiet: turns inline debugging off.  Helpfull for using the cabage shell.
+ local: runs cabage without ruby virtual machine support.  Helpful for development.
 ```
-#### shell helper
-```
-usage: ./cabage/work <option> [arg]
-```
+
 ### Project Info
 About the project...
 #### Use cases
