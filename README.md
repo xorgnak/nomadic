@@ -45,9 +45,9 @@ smart mirrors, tvs, etc.
 
 ### Sites using the platform
 [![Website vango.me](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://vango.me/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)]
 
 
 
 [![Website silverwood.works](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://silverwood.works/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)]
