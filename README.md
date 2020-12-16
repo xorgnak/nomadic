@@ -8,7 +8,7 @@
 1. clone nomadic.
 1. run `cd nomadic && ./run`
 
-[0](https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&slug=maxcatman&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)
+[0](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&slug=maxcatman&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)
 
 ### How it works
 Nomadic linux provides a set of organizational tools which take advantage of local, IoT, and cloud resources.  The web interface provides a simple way to use the tools to get things done and more.  
