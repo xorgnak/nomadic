@@ -1,7 +1,8 @@
 [![made-with-ruby](https://img.shields.io/badge/Made%20with-Ruby-1f425f.svg)](https://rubylang.org/)
 [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/)
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-Javascript-1f425f.svg)](https://www.javascript.com)
-[![Open Source Love png2](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![made-with-c](https://img.shields.io/badge/Made%20with-C-1f425f.svg)](https://clang.org/)
+[![made-with-html](https://img.shields.io/badge/Made%20with-html-1f425f.svg)](https://html.org/)
 ### Installation
 1. get linux running.
 1. get git running.
@@ -47,3 +48,5 @@ Nomadic does waste muct time or space with games, but it does ship with an nes e
 [![1](https://github-readme-stats.vercel.app/api?username=xorgnak&theme=radical&show_icons=true&layout=compact)](https://github.com/xorgnak/nomadic)
 #### 
 ![1](https://github-readme-stats.vercel.app/api/top-langs/?username=xorgnak&theme=radical&layout=compact)
+####
+[![Open Source Love png2](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
