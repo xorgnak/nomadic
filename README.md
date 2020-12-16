@@ -8,7 +8,7 @@
 1. clone nomadic.
 1. run `cd nomadic && ./run`
 
-<script data-name="BMC-Widget" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="maxcatman" data-description="Support me on Buy me a coffee!" data-message="Good software takes a lot of late night hours.  Support the cause with lots of fresh hot coffee!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+<div><script data-name="BMC-Widget" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="maxcatman" data-description="Support me on Buy me a coffee!" data-message="Good software takes a lot of late night hours.  Support the cause with lots of fresh hot coffee!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script></div>
 
 
 ### How it works
