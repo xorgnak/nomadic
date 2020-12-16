@@ -1,6 +1,7 @@
 [![made-with-ruby](https://img.shields.io/badge/Made%20with-Ruby-1f425f.svg)](https://rubylang.org/)
 [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/)
 [![GitHub license](https://img.shields.io/github/license/xorgnak/nomadic.svg)](https://github.com/xorgnak/nomadic/blob/master/LICENSE)
+[![BADGINATOR](https://badginator.herokuapp.com/xorgnak/nomadic.svg)](https://github.com/xorgnak/nomadic)
 ### Installation
 1. get linux running.
 1. get git running.
@@ -40,14 +41,3 @@ smart mirrors, tvs, etc.
 [![1](https://github-readme-stats.vercel.app/api/top-langs/?username=xorgnak&theme=radical&layout=compact)
 #### 
 [![1](https://github-readme-stats.vercel.app/api/wakatime?username=xorgnak&theme=radical&layout=compact)
-
-
-
-### Sites using the platform
-[![Website vango.me](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://vango.me/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)]
-
-
-
-[![Website silverwood.works](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://silverwood.works/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)]
