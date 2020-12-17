@@ -1,7 +1,10 @@
 # NOMADIC
 [![0](https://img.shields.io/badge/Made%20with-Ruby,Bash,Javascript,C/C++,<3-1f425f.svg)](https://rubylang.org/)
 ## GET STARTED NOW
-1. `git clone https://github.com/xorgnak/nomadic && cd nomadic && ./run`
+1. run the following in any debian/ubuntu based terminal and follow the prompts.
+```
+git clone https://github.com/xorgnak/nomadic && cd nomadic && ./run
+```
 1. that's it.  you're done.  Just wait for the installer to finish.
 1. Support further development...
 [![Buy Me A Coffee !](https://img.shields.io/badge/buy%20me%20a-coffee-1abc9c.svg)](https://www.buymeacoffee.com/maxcatman)
