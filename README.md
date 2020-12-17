@@ -1,5 +1,5 @@
 # NOMADIC
-[![0](https://img.shields.io/badge/Made%20with-Ruby,Bash,Javascript,C/C++,<3-1f425f.svg)](https://rubylang.org/)
+[![0](https://img.shields.io/badge/Made%20with:-Ruby,%20Bash,%20Javascript,%20C/C++,%20and%20<3!-1f425f.svg)](https://rubylang.org/)
 ## GET STARTED NOW
 1. run the following in any debian/ubuntu based terminal and follow the prompts.
 ```
