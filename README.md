@@ -2,7 +2,7 @@
 [![made-with-ruby](https://img.shields.io/badge/Made%20with-Ruby-1f425f.svg)](https://rubylang.org/)
 [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/)
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-Javascript-1f425f.svg)](https://www.javascript.com)
-[![made-with-c](https://img.shields.io/badge/Made%20with-C-1f425f.svg)](https://clang.org/)
+[![made-with-c/c++](https://img.shields.io/badge/Made%20with-C/C++-1f425f.svg)](https://clang.org/)
 [![made-with-html](https://img.shields.io/badge/Made%20with-html-1f425f.svg)](https://html.org/)
 ## GET STARTED NOW
 1. `git clone https://github.com/xorgnak/nomadic && cd nomadic && ./run`
