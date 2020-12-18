@@ -3,7 +3,7 @@
 ## GET STARTED NOW
 1. run the following in any debian/ubuntu based terminal and follow the prompts.
 ```
-git clone https://github.com/xorgnak/nomadic && cd nomadic && ./run
+git clone https://github.com/xorgnak/nomadic && cd nomadic && ./nomadic
 ```
 2. that's it.  you're done.  Just wait for the installer to finish.
 3. Support further development...
@@ -23,31 +23,31 @@ After the web app loads, all further communications from and to the browser pass
 Cabage provides a the webserver and basic shell configuration for nomadic.  The nomadic installer handles it's installation and configuration.  The work script provides access to the tools and utilities nomadic relies on to function.
 ### connecting to wifi
 ```
-./cabage/work wifi
+work wifi
 ```
 ### connecting to a server
 ```
-./cabage/work connect <the server you are connecting to> 
+work ssh <user@domain> 
 ```
 ### watching network traffic
 ```
-./work shark
+work shark
 ```
 ### seeing what your device looks like from the outside
 ```
-./work scanme
+work scanme
 ```
 ### watch file creation and publish events
 ```
-./work /path/to/directory
+work /path/to/directory
 ```
 ### borrow your neighbors wifi
 ```
-./work hack
+work hack
 ```
 ### update cabage
 ```
-./work pull && ./now
+work pull && ./now
 ```
 
 ## quick reference
@@ -69,13 +69,15 @@ usage: ./work [ssh|push|pull|browser|user|wifi|hack|shark|fingerprint|scanme|wat
 ## app server
 This is the server which hosts the web interfaces.  Nomadic will start it when the system starts, but sometimes you may need to start it locally.
 ```
-usage: ./now [quiet] [local]
- quiet: turns inline debugging off.  Helpfull for using the cabage shell.
- local: runs cabage without ruby virtual machine support.  Helpful for development.
+usage: ./now [quiet]
+ quiet: turns inline debugging off.
 ```
 
 # dwm
-
+To install the nomadic gui:
+```
+./nomadic add gui
+```
 ## browsing
 
 ## other utilities
@@ -83,17 +85,17 @@ Nomadic comes with many other extentions which can easily installed to add more 
 ### Software Defined Radio
 A simple usb dongle software defined radio can allow your system to send and receive on a wide array of radio frequencies.
 ```
-nomadic add radio
+./nomadic add radio
 ```
 ### Microcontrollers and embedded development
 The Arduino 
 ```
-nomadic add arduino
+./nomadic add arduino
 ```
 ## stats
 ###
 [![1](https://github-readme-stats.vercel.app/api?username=xorgnak&theme=radical&show_icons=true&layout=compact)](https://github.com/xorgnak/nomadic)
 ### 
-![1](https://github-readme-stats.vercel.app/api/top-langs/?username=xorgnak&theme=radical&layout=compact)
+![1](https://github-readme-stats.vercel.app/api/top-langs/?username=xorgnak&theme=radical&layout=compa/ct)
 ###
 [![Open Source Love png2](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
