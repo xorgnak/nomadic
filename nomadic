@@ -1,5 +1,15 @@
 #!/bin/bash
 
+if [ "$1" == "wipe" ]; then
+	cd ~/
+	rm -fR nomadic
+	rm -fR cabage
+	rm -fR bin
+	rm -fR dwm
+	rm .screenrc
+	rm .irc.el
+fi
+
 if [ ! -d ~/cabage ]; then
     cd ~;
     git clone https://github.com/xorgnak/cabage && cd cabage && ./now;
