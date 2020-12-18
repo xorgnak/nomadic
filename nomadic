@@ -20,6 +20,8 @@ if [ "$1" == "add" ]; then
     elif [ "$2" == "radio" ]; then
 	sudo apt install -y rtl-sdr;
     fi
+else
+	cd ../cabage && ./now;    
 fi
 
 
