@@ -7,9 +7,9 @@ git clone https://github.com/xorgnak/nomadic && cd nomadic && ./run
 ```
 1. that's it.  you're done.  Just wait for the installer to finish.
 1. Support further development...
-[![Buy Me A Coffee !](https://img.shields.io/badge/buy%20me%20a-coffee-1abc9c.svg)](https://www.buymeacoffee.com/maxcatman)
-[![Support My Work !](https://img.shields.io/badge/support%20my-work-1abc9c.svg)](https://www.patreon.com/zyphr)
-[![Visit My Store !](https://img.shields.io/badge/visit%20my-store-1abc9c.svg)](https://www.etsy.com/shop/tomorrowsfuture)
+# [![Buy Me A Coffee !](https://img.shields.io/badge/buy%20me%20a-coffee-1abc9c.svg)](https://www.buymeacoffee.com/maxcatman)
+# [![Support My Work !](https://img.shields.io/badge/support%20my-work-1abc9c.svg)](https://www.patreon.com/zyphr)
+# [![Visit My Store !](https://img.shields.io/badge/visit%20my-store-1abc9c.svg)](https://www.etsy.com/shop/tomorrowsfuture)
 ## What it is
 - It's linux folks.  Adding Nomadic to your Debian based linux installation will give you a solid set of tools useful for general computing as well as development.
 - Nomadic is designed to allow you to use any display as a marketing tool for your brand.  The customer interaction interface also functions as a simple point of sale system, prompting your customer with an invoice and button to pay via venmo.
