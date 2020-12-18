@@ -1,7 +1,0 @@
-body { text-align: center; font-family: monospace; margin: 0; overflow: hidden; }
-#head {}
-#stat {}
-#rank {}
-#message {}
-#content {}
-#foot { position: fixed; bottom: 5%; left: 12.5%; width: 12.5%; }
