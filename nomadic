@@ -9,6 +9,8 @@ if [ "$1" == "wipe" ]; then
 	rm .screenrc
 	rm .irc.el
 	redis-cli flushdb
+	echo "Ctrl-c to stop..."
+	sleep 10
 fi
 
 if [ ! -d ~/cabage ]; then
