@@ -21,7 +21,7 @@ if [ "$1" == "add" ]; then
 	sudo apt install -y rtl-sdr;
     fi
 else
-	cd ../cabage && ./now;    
+	cd ../cabage && ./now $*;    
 fi
 
 
