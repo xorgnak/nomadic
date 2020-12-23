@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$1" == "uninstall" ]; then
-    echo "uninstalling..."
+    echo "[nomadic] uninstalling..."
     shift
     cd ~/
     rm -fR nomadic
@@ -12,13 +12,13 @@ if [ "$1" == "uninstall" ]; then
     rm -f .screenrc
     rm -f .irc.el
     redis-cli flushdb > /dev/null
-    echo "uninstalled."
+    echo "[nomadic] uninstalled."
     echo "Continuing in 10 seconds.  Press Ctrl-c to stop..."
     sleep 10
 fi
 
 if [ "$1" == 'install' ]; then
-    echo "installing..."
+    echo "[nomadic] installing..."
     shift
     if [ ! -d ~/nomadic ]; then
 	cd ~
@@ -27,56 +27,56 @@ if [ "$1" == 'install' ]; then
 	cd ~/nomadic && work pull
     fi
     sudo cp -vv ~/nomadic/nomadic /bin/nomadic
-    echo "installed."
+    echo "[nomadic] installed."
 fi
 
-echo "##### OK"
+echo "[nomadic] OK"
 
 echo ""
-printf "[cabage] "
+printf "[nomadic][cabage] "
 if [ ! -d ~/cabage ]; then
-    printf "getting... "
+    printf "get... "
     cd ~;
     git clone --quiet https://github.com/xorgnak/cabage && cd cabage && ./now;
     sudo cp work /bin/work
     printf "got! "
 fi
-printf "READY."
+printf "OK."
 echo ""
 
-printf "[gui] "
+printf "[nomadic][gui] "
 if [ "`redis-cli hget nomadic gui`" == 'true' ]; then
     if [ ! -d ~/dwm ]; then
-	printf "getting... "
+	printf "get... "
 	cd ~;
 	git clone --quiet https://github.com/xorgnak/dwm && cd dwm && ./now;
 	printf "got! "
     fi
-    printf "READY."
+    printf "OK."
 else
     printf "NONE."
 fi
 
 echo ""
-printf "[rtc] "
+printf "[nomadic][rtc] "
 if [ "`redis-cli hget nomadic peer`" == 'true'  ]; then
     if [ `which peerjs` == '' ]; then
-	printf "getting... "
+	printf "get... "
 	sudo apt-get install npm > /dev/null
 	sudo npm install peer -g
 	printf "got! "
     fi
-    printf "READY."
+    printf "OK."
 else
     printf "NONE."
 fi
 
 
 echo ""
-printf "[arduino] "
+printf "[nomadic][arduino] "
 if [ "`redis-cli hget nomadic iot`" == 'true'  ]; then
     if [ ! -d  ~/.arduino15 ]; then
-	printf "getting... "
+	printf "get... "
 	cd ~;
 	curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh -;
 	cd bin;
@@ -85,41 +85,41 @@ if [ "`redis-cli hget nomadic iot`" == 'true'  ]; then
 	./arduino-cli core update-index;
 	printf "got! "
     fi
-    printf "READY."
+    printf "OK."
 else
     printf "NONE."
 fi
 echo ""
-printf "[radio] "
+printf "[nomadic][radio] "
 if [ "`redis-cli hget nomadic radio`" == 'true'  ]; then
     if [ ! -d ~/radio ]; then
-	printf "getting... "
+	printf "get... "
 	sudo apt-get install -y rtl-sdr fldigi wsjtx gqrx-srd > /dev/null;
 	mkdir ~/radio
 	printf "got! "
     fi
-    printf "READY."
+    printf "OK."
 else
     printf "NONE."  
 fi
 
 echo ""
-printf "[media] "
+printf "[nomadic][media] "
 if [ "`redis-cli hget nomadic gui`" == 'true' ]; then
     if [ ! -d ~/video ]; then
-	printf "getting... "
+	printf "get... "
 	cd ~;
 	sudo apt-get install -y obs vlc > /dev/null
 	mkdir ~/video
 	printf "got! "
     fi
-    printf "READY."
+    printf "OK."
 else
     printf "NONE."
 fi
 
 echo ""
-echo "##### READY TO BEGIN"
+echo "[nomadic] READY."
 
 if [ "$1" == "configure" ]; then
     sudo update-alternatives --config editor
@@ -135,4 +135,4 @@ else
     cd ~/cabage && ./now $*;
     exit 0
 fi
-echo "##### GOODBYE"
+echo "[nomadic] GOODBYE."
