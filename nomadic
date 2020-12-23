@@ -30,20 +30,16 @@ if [ "$1" == 'install' ]; then
     echo "[nomadic] installed."
 fi
 
-echo "[nomadic] OK"
-
-echo ""
-printf "[nomadic][cabage] "
+echo "[nomadic][cabage] "
 if [ ! -d ~/cabage ]; then
-    printf "get... "
+    echo "[nomadic][cabage] get... "
     cd ~;
     git clone --quiet https://github.com/xorgnak/cabage && cd cabage && ./now;
     sudo cp work /bin/work
-    printf "got! "
+    echo "[nomadic][cabage] got! "
 fi
-printf "OK."
-echo ""
 
+echo ""
 printf "[nomadic][gui] "
 if [ "`redis-cli hget nomadic gui`" == 'true' ]; then
     if [ ! -d ~/dwm ]; then
