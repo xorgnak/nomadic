@@ -55,7 +55,7 @@ fi
 
 echo ""
 printf "[nomadic][rtc] "
-if [ "`redis-cli hget nomadic peer`" == 'true'  ]; then
+if [ "`redis-cli hget nomadic rtc`" == 'true'  ]; then
     if [ `which peerjs` == '' ]; then
 	printf "get... "
 	sudo apt-get install npm > /dev/null
@@ -69,7 +69,7 @@ fi
 
 
 echo ""
-printf "[nomadic][arduino] "
+printf "[nomadic][iot] "
 if [ "`redis-cli hget nomadic iot`" == 'true'  ]; then
     if [ ! -d  ~/.arduino15 ]; then
 	printf "get... "
@@ -101,7 +101,7 @@ fi
 
 echo ""
 printf "[nomadic][media] "
-if [ "`redis-cli hget nomadic gui`" == 'true' ]; then
+if [ "`redis-cli hget nomadic media`" == 'true' ]; then
     if [ ! -d ~/video ]; then
 	printf "get... "
 	cd ~;
