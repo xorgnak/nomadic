@@ -37,7 +37,7 @@ printf "READY."
 echo ""
 
 printf "[gui] "
-if [ `redis-cli hget nomadic gui` == 'true' ]; then
+if [ "`redis-cli hget nomadic gui`" == 'true' ]; then
     if [ ! -d ~/dwm ]; then
 	printf "getting... "
 	cd ~;
@@ -51,7 +51,7 @@ fi
 
 echo ""
 printf "[rtc] "
-if [ `redis-cli hget nomadic peer` == 'true'  ]; then
+if [ "`redis-cli hget nomadic peer`" == 'true'  ]; then
     if [ `which peerjs` == '' ]; then
 	printf "getting... "
 	sudo apt -qq install npm
@@ -66,7 +66,7 @@ fi
 
 echo ""
 printf "[arduino] "
-if [ `redis-cli hget nomadic iot` == 'true'  ]; then
+if [ "`redis-cli hget nomadic iot`" == 'true'  ]; then
     if [ ! -d  ~/.arduino15 ]; then
 	printf "getting... "
 	cd ~;
@@ -83,7 +83,7 @@ else
 fi
 echo ""
 printf "[radio] "
-if [ `redis-cli hget nomadic radio` == 'true'  ]; then
+if [ "`redis-cli hget nomadic radio`" == 'true'  ]; then
     if [ ! -d ~/radio ]; then
 	printf "getting... "
 	sudo apt -qq install -y rtl-sdr fldigi wsjtx gqrx-srd;
@@ -97,7 +97,7 @@ fi
 
 echo ""
 printf "[media] "
-if [ `redis-cli hget nomadic gui` == 'true' ]; then
+if [ "`redis-cli hget nomadic gui`" == 'true' ]; then
     if [ ! -d ~/video ]; then
 	printf "getting... "
 	cd ~;
