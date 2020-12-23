@@ -12,7 +12,7 @@ if [ "$1" == "wipe" ]; then
     rm .screenrc
     rm .irc.el
     redis-cli flushdb > /dev/null
-    if ["$2" != "clean" ]; then
+    if [ "$2" != "clean" ]; then
 	git clone --quiet https://github.com/xorgnak/nomadic
     fi
     printf "wiped!"
