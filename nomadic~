@@ -1,49 +1,41 @@
 #!/bin/bash
 
+source env.sh
+
 if [ "$1" == "wipe" ]; then
     printf "wiping... "
     shift
     cd ~/
     rm -fR nomadic
-    sudo rm /bin/nomadic
     rm -fR cabage
     rm -fR bin
     rm -fR dwm
     rm .screenrc
     rm .irc.el
-    redis-cli flushdb > /dev/null
-    if ["$2" != "clean" ]; then
-	git clone --quiet https://github.com/xorgnak/nomadic
-    fi
+    redis-cli flushdb
     printf "wiped!"
     echo "Ctrl-c to stop..."
     sleep 10
 fi
 
-if [ "$1" == "install" ]; then
-    sudo cp ~/nomadic/nomadic /bin/nomadic
-fi
-
 echo "##### OK"
-
 echo ""
 printf "[cabage] "
 if [ ! -d ~/cabage ]; then
     printf "getting... "
     cd ~;
-    git clone --quiet https://github.com/xorgnak/cabage && cd cabage && ./now;
+    git clone https://github.com/xorgnak/cabage && cd cabage && ./now;
     sudo cp work /bin/work
     printf "got! "
 fi
 printf "READY."
 echo ""
-
 printf "[gui] "
-if [ `redis-cli hget nomadic gui` == 'true' ]; then
+if [ $WORK_GUI == true ]; then
     if [ ! -d ~/dwm ]; then
 	printf "getting... "
 	cd ~;
-	git clone --quiet https://github.com/xorgnak/dwm && cd dwm && ./now;
+	git clone https://github.com/xorgnak/dwm && cd dwm && ./now;
 	printf "got! "
     fi
     printf "READY."
@@ -53,10 +45,10 @@ fi
 
 echo ""
 printf "[rtc] "
-if [ `redis-cli hget nomadic peer` == 'true'  ]; then
+if [ $WORK_RTC == true ]; then
     if [ `which peerjs` == '' ]; then
 	printf "getting... "
-	sudo apt -qq install npm
+	sudo apt install npm
 	sudo npm install peer -g
 	printf "got! "
     fi
@@ -68,7 +60,7 @@ fi
 
 echo ""
 printf "[arduino] "
-if [ `redis-cli hget nomadic iot` == 'true'  ]; then
+if [ $WORK_ARDUINO == true ]; then
     if [ ! -d  ~/.arduino15 ]; then
 	printf "getting... "
 	cd ~;
@@ -85,10 +77,10 @@ else
 fi
 echo ""
 printf "[radio] "
-if [ `redis-cli hget nomadic radio` == 'true'  ]; then
+if [ $WORK_RADIO == true ]; then
     if [ ! -d ~/radio ]; then
 	printf "getting... "
-	sudo apt -qq install -y rtl-sdr fldigi wsjtx gqrx-srd;
+	sudo apt install -y rtl-sdr fldigi wsjtx gqrx-srd;
 	mkdir ~/radio
 	printf "got! "
     fi
@@ -99,11 +91,11 @@ fi
 
 echo ""
 printf "[media] "
-if [ `redis-cli hget nomadic gui` == 'true' ]; then
+if [ $WORK_MEDIA == true ]; then
     if [ ! -d ~/video ]; then
 	printf "getting... "
 	cd ~;
-	sudo apt -qq install obs vlc
+	sudo apt install obs vlc
 	mkdir ~/video
 	printf "got! "
     fi
@@ -112,21 +104,22 @@ else
     printf "NONE."
 fi
 
+
 echo ""
+echo "*** run './$0 configure' to update these settings."
 echo "##### READY TO BEGIN"
 
 if [ "$1" == "configure" ]; then
     sudo update-alternatives --config editor
     sudo update-alternatives --config x-terminal-emulator
     sudo update-alternatives --config x-www-browser
+    editor env.sh
 elif [ "$1" == '--help' ] || [ "$1" == "help" ] || [ "$1" == "-h" ]; then
-    echo "usage: ./$0 [configure|wipe|install]"
-    echo "- configure: set default applications."
-    echo "- uninstall: clean nomadic from the system."
-    echo "- install: install nomadic on the system."
-    echo "start nomadic."
+    echo "usage: ./$0 [configure]"
+    echo " configure: edit environment"
+    echo "else"
+    echo "- run cabage"
 else
-    cd ~/cabage && ./now $*;
-    exit 0
+    cd ~/cabage && ./now $*;    
 fi
 echo "##### GOODBYE"
