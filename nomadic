@@ -12,9 +12,7 @@ if [ "$1" == "wipe" ]; then
     rm .screenrc
     rm .irc.el
     redis-cli flushdb > /dev/null
-    if [ "$2" != "clean" ]; then
-	git clone --quiet https://github.com/xorgnak/nomadic
-    fi
+    git clone --quiet https://github.com/xorgnak/nomadic
     printf "wiped!"
     echo "Ctrl-c to stop..."
     sleep 10
