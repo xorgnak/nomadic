@@ -5,12 +5,12 @@ if [ "$1" == "uninstall" ]; then
     shift
     cd ~/
     rm -fR nomadic
-    sudo rm /bin/nomadic
+    sudo rm -f /bin/nomadic
     rm -fR cabage
     rm -fR bin
     rm -fR dwm
-    rm .screenrc
-    rm .irc.el
+    rm -f .screenrc
+    rm -f .irc.el
     redis-cli flushdb > /dev/null
     echo "uninstalled."
     echo "Continuing in 10 seconds.  Press Ctrl-c to stop..."
@@ -22,7 +22,7 @@ if [ "$1" == 'install' ]; then
     shift
     if [ ! -d ~/nomadic ]; then
 	cd ~
-	git clone https://github.com/xorgnak/nomadic
+	git clone --quiet https://github.com/xorgnak/nomadic
     else
 	cd ~/nomadic && work pull
     fi
@@ -62,7 +62,7 @@ printf "[rtc] "
 if [ "`redis-cli hget nomadic peer`" == 'true'  ]; then
     if [ `which peerjs` == '' ]; then
 	printf "getting... "
-	sudo apt -qq install npm
+	sudo apt-get install npm > /dev/null
 	sudo npm install peer -g
 	printf "got! "
     fi
@@ -94,7 +94,7 @@ printf "[radio] "
 if [ "`redis-cli hget nomadic radio`" == 'true'  ]; then
     if [ ! -d ~/radio ]; then
 	printf "getting... "
-	sudo apt -qq install -y rtl-sdr fldigi wsjtx gqrx-srd;
+	sudo apt-get install -y rtl-sdr fldigi wsjtx gqrx-srd > /dev/null;
 	mkdir ~/radio
 	printf "got! "
     fi
@@ -109,7 +109,7 @@ if [ "`redis-cli hget nomadic gui`" == 'true' ]; then
     if [ ! -d ~/video ]; then
 	printf "getting... "
 	cd ~;
-	sudo apt -qq install obs vlc
+	sudo apt-get install -y obs vlc > /dev/null
 	mkdir ~/video
 	printf "got! "
     fi
