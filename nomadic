@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ "$1" == "wipe" ]; then
-    printf "wiping... "
+if [ "$1" == "uninstall" ]; then
+    echo "wiping... "
     shift
     cd ~/
     rm -fR nomadic
@@ -12,13 +12,14 @@ if [ "$1" == "wipe" ]; then
     rm .screenrc
     rm .irc.el
     redis-cli flushdb > /dev/null
-    git clone --quiet https://github.com/xorgnak/nomadic
     printf "wiped!"
     echo "Ctrl-c to stop..."
     sleep 10
 fi
 
-if [ "$1" == "install" ]; then
+if [ "$1" == 'install' ]; then
+    cd ~
+    git clone --quiet https://github.com/xorgnak/nomadic
     sudo cp ~/nomadic/nomadic /bin/nomadic
 fi
 
