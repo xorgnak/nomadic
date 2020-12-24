@@ -105,7 +105,7 @@ if [ "`redis-cli hget nomadic media`" == 'true' ]; then
     if [ ! -d ~/video ]; then
 	printf "get... "
 	cd ~;
-	sudo apt-get install -y obs vlc > /dev/null
+	sudo apt-get install -y obs-studio vlc > /dev/null
 	mkdir ~/video
 	printf "got! "
     fi
