@@ -48,7 +48,8 @@ work hack
 
 ## quick reference
 ```
-usage: ./work [ssh|push|pull|browser|user|wifi|hack|shark|fingerprint|scanme|watch]
+usage: ./work [task]
+tasks:
  ssh <user@domain>
  push <your commit message>
  pull
@@ -60,12 +61,8 @@ usage: ./work [ssh|push|pull|browser|user|wifi|hack|shark|fingerprint|scanme|wat
  fingerprint <domain>
  scanme
  watch <dir>
-```
-
-## nomadic extensions
-Nomadic has predefined extensions for a gui, rtc server, audio/video, radio, and iot.
-```
-brb...
+ tor
+ set <extension>
 ```
 ## stats
 ###
