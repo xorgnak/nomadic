@@ -45,10 +45,6 @@ work /path/to/directory
 ```
 work hack
 ```
-### update cabage
-```
-work pull && ./now
-```
 
 ## quick reference
 ```
@@ -66,31 +62,10 @@ usage: ./work [ssh|push|pull|browser|user|wifi|hack|shark|fingerprint|scanme|wat
  watch <dir>
 ```
 
-## app server
-This is the server which hosts the web interfaces.  Nomadic will start it when the system starts, but sometimes you may need to start it locally.
+## nomadic extensions
+Nomadic has predefined extensions for a gui, rtc server, audio/video, radio, and iot.
 ```
-usage: ./now [quiet]
- quiet: turns inline debugging off.
-```
-
-# dwm
-To install the nomadic gui:
-```
-./nomadic add gui
-```
-## browsing
-
-## other utilities
-Nomadic comes with many other extentions which can easily installed to add more functionality.
-### Software Defined Radio
-A simple usb dongle software defined radio can allow your system to send and receive on a wide array of radio frequencies.
-```
-./nomadic add radio
-```
-### Microcontrollers and embedded development
-The Arduino 
-```
-./nomadic add arduino
+brb...
 ```
 ## stats
 ###
