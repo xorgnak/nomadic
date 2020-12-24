@@ -13,12 +13,10 @@ git clone https://github.com/xorgnak/nomadic && cd nomadic && ./nomadic
 - Nomadic is designed to allow you to use any display as a marketing tool for your brand.  The customer interaction interface also functions as a simple point of sale system, prompting your customer with an invoice and button to pay via venmo.
 - Nomadic makes heavy use of the org-mode note taking system built into the emacs text editor.  It allows free form notes to contain formulas, lists, and tables.  Further information can be found [here](https://orgmode.org/).
 - Nomadic does waste muct time or space with games, but it does ship with [slash'em](https://en.wikipedia.org/wiki/Slash%27EM) and a [mud](https://en.wikipedia.org/wiki/MUD) [client](https://tintin.mudhalla.net/)/[server](https://tinymux.org).
-
 ## how it works
 Nomadic linux provides a set of organizational tools which take advantage of local, IoT, and cloud resources.  The web interface provides a simple way to use the tools to get things done and more.  
 Nomadic runs a webserver to provide interfacing to the tools provided.  The menu provodes other interfaces can be opened to provide bilboarding and customer impact functions as well as other useful tools.  
 After the web app loads, all further communications from and to the browser pass across an mqtt networks.  Services listen to mqtt traffic and push their results to the browser across the same network.  This provides a lightweight single layer communications protocol capable of managing a user's state across all interfaces in real time.  
-
 # Cabage
 Cabage provides a the webserver and basic shell configuration for nomadic.  The nomadic installer handles it's installation and configuration.  The work script provides access to the tools and utilities nomadic relies on to function.
 ### connecting to wifi
@@ -45,7 +43,6 @@ work /path/to/directory
 ```
 work hack
 ```
-
 ## quick reference
 ```
 usage: ./work [task]
@@ -62,7 +59,7 @@ tasks:
  scanme
  watch <dir>
  tor
- set <extension>
+ add <extension>
 ```
 ## stats
 ###
