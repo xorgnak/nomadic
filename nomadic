@@ -4,11 +4,14 @@ if [ "$1" == "uninstall" ]; then
     echo "[nomadic] uninstalling..."
     shift
     cd ~/
-    rm -fR nomadic
+    rm -fR ~/nomadic
     sudo rm -f /bin/nomadic
-    rm -fR cabage
-    rm -fR bin
-    rm -fR dwm
+    rm -fR ~/cabage
+    rm -fR ~/bin
+    rm -fR ~/dwm
+    rm -fR ~/radio
+    rm -fR ~/media
+    rm -fR ~/.arduino15
     rm -f .screenrc
     rm -f .irc.el
     redis-cli flushdb > /dev/null
@@ -24,7 +27,7 @@ if [ "$1" == 'install' ]; then
 	cd ~
 	git clone --quiet https://github.com/xorgnak/nomadic
     else
-	cd ~/nomadic && work pull
+	cd ~/nomadic && git pull
     fi
     sudo cp -vv ~/nomadic/nomadic /bin/nomadic
     echo "[nomadic] installed."
@@ -102,11 +105,11 @@ fi
 echo ""
 printf "[nomadic][media] "
 if [ "`redis-cli hget nomadic media`" == 'true' ]; then
-    if [ ! -d ~/video ]; then
+    if [ ! -d ~/media ]; then
 	printf "get... "
 	cd ~;
 	sudo apt-get install -y vlc > /dev/null
-	mkdir ~/video
+	mkdir ~/media
 	printf "got! "
     fi
     printf "OK."
