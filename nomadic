@@ -90,7 +90,7 @@ printf "[nomadic][radio] "
 if [ "`redis-cli hget nomadic radio`" == 'true'  ]; then
     if [ ! -d ~/radio ]; then
 	printf "get... "
-	sudo apt-get install -y rtl-sdr fldigi wsjtx gqrx-srd lingot > /dev/null;
+	sudo apt-get install -y rtl-sdr fldigi wsjtx gqrx-sdr lingot > /dev/null;
 	mkdir ~/radio
 	printf "got! "
     fi
@@ -105,7 +105,7 @@ if [ "`redis-cli hget nomadic media`" == 'true' ]; then
     if [ ! -d ~/video ]; then
 	printf "get... "
 	cd ~;
-	sudo apt-get install -y obs-studio vlc > /dev/null
+	sudo apt-get install -y vlc > /dev/null
 	mkdir ~/video
 	printf "got! "
     fi
