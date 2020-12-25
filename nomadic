@@ -79,6 +79,7 @@ if [ "`redis-cli hget nomadic iot`" == 'true'  ]; then
 	cd ~;
 	curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh -;
 	cd bin;
+	git clone https://github.com/xorgnak/node
 	./arduino-cli config init;
 	editor ~/.arduino15/arduino-cli.yaml
 	./arduino-cli core update-index;
