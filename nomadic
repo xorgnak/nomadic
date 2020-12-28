@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$1" == "uninstall" ]; then
+if [ "$1" == "clean" ]; then
     echo "[nomadic] uninstalling..."
     shift
     cd ~/
@@ -20,18 +20,15 @@ if [ "$1" == "uninstall" ]; then
     sleep 10
 fi
 
-if [ "$1" == 'install' ]; then
-    echo "[nomadic] installing..."
-    shift
-    if [ ! -d ~/nomadic ]; then
+echo "[nomadic]"
+if [ ! -d ~/nomadic ]; then
 	cd ~
 	git clone --quiet https://github.com/xorgnak/nomadic
-    else
+else
 	cd ~/nomadic && git pull
-    fi
-    sudo cp -vv ~/nomadic/nomadic /bin/nomadic
-    echo "[nomadic] installed."
 fi
+sudo cp ~/nomadic/nomadic /bin/nomadic
+echo "[nomadic] installed."
 
 echo "[nomadic][cabage] "
 if [ ! -d ~/cabage ]; then
@@ -42,39 +39,31 @@ if [ ! -d ~/cabage ]; then
     echo "[nomadic][cabage] got! "
 fi
 
+
 echo ""
 printf "[nomadic][gui] "
-if [ "`redis-cli hget nomadic gui`" == 'true' ]; then
-    if [ ! -d ~/dwm ]; then
+if [ ! -d ~/dwm ]; then
 	printf "get... "
 	cd ~;
 	git clone --quiet https://github.com/xorgnak/dwm && cd dwm && ./now;
 	printf "got! "
-    fi
-    printf "OK."
-else
-    printf "NONE."
 fi
+printf "OK."
 
 echo ""
 printf "[nomadic][rtc] "
-if [ "`redis-cli hget nomadic rtc`" == 'true'  ]; then
-    if [ `which peerjs` == '' ]; then
+if [ `which peerjs` == '' ]; then
 	printf "get... "
 	sudo apt-get install npm > /dev/null
 	sudo npm install peer -g
 	printf "got! "
-    fi
-    printf "OK."
-else
-    printf "NONE."
 fi
+printf "OK."
 
 
 echo ""
 printf "[nomadic][iot] "
-if [ "`redis-cli hget nomadic iot`" == 'true'  ]; then
-    if [ ! -d  ~/.arduino15 ]; then
+if [ ! -d  ~/.arduino15 ]; then
 	printf "get... "
 	cd ~;
 	curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh -;
@@ -84,39 +73,29 @@ if [ "`redis-cli hget nomadic iot`" == 'true'  ]; then
 	editor ~/.arduino15/arduino-cli.yaml
 	./arduino-cli core update-index;
 	printf "got! "
-    fi
-    printf "OK."
-else
-    printf "NONE."
 fi
+printf "OK."
+
 echo ""
 printf "[nomadic][radio] "
-if [ "`redis-cli hget nomadic radio`" == 'true'  ]; then
-    if [ ! -d ~/radio ]; then
+if [ ! -d ~/radio ]; then
 	printf "get... "
 	sudo apt-get install -y rtl-sdr fldigi wsjtx gqrx-sdr lingot chirp multimon-ng;
 	mkdir ~/radio
 	printf "got! "
-    fi
-    printf "OK."
-else
-    printf "NONE."  
 fi
+printf "OK."
 
 echo ""
 printf "[nomadic][media] "
-if [ "`redis-cli hget nomadic media`" == 'true' ]; then
-    if [ ! -d ~/media ]; then
+if [ ! -d ~/media ]; then
 	printf "get... "
 	cd ~;
 	sudo apt-get install -y vlc audacity jaaa siggen butt darkice darksnow autoradio musescore mpd mpdtoys mpc ncmpc ncmpcpp mumble mumble-server gtranscribe espeak-ng-espeak
 	mkdir ~/media
 	printf "got! "
-    fi
-    printf "OK."
-else
-    printf "NONE."
 fi
+printf "OK."
 
 echo ""
 echo "[nomadic] READY."
