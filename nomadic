@@ -54,7 +54,7 @@ echo ""
 printf "[nomadic][rtc] "
 if [ ! `which peerjs` ]; then
 	printf "get... "
-	sudo apt-get install npm > /dev/null
+	sudo apt-get install -y npm > /dev/null
 	sudo npm install peer -g
 	printf "got! "
 fi
