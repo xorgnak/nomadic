@@ -28,7 +28,7 @@ else
 	cd ~/nomadic && git pull
 fi
 sudo cp ~/nomadic/nomadic /bin/nomadic
-echo "[nomadic] installed."
+echo "[nomadic] updated."
 
 echo "[nomadic][cabage] "
 if [ ! -d ~/cabage ]; then
@@ -38,7 +38,6 @@ if [ ! -d ~/cabage ]; then
     sudo cp work /bin/work
     echo "[nomadic][cabage] got! "
 fi
-
 
 echo ""
 printf "[nomadic][gui] "
@@ -59,7 +58,6 @@ if [ ! `which peerjs` ]; then
 	printf "got! "
 fi
 printf "OK."
-
 
 echo ""
 printf "[nomadic][iot] "
@@ -99,19 +97,6 @@ printf "OK."
 
 echo ""
 echo "[nomadic] READY."
-
-if [ "$1" == "configure" ]; then
-    sudo update-alternatives --config editor
-    sudo update-alternatives --config x-terminal-emulator
-    sudo update-alternatives --config x-www-browser
-elif [ "$1" == '--help' ] || [ "$1" == "help" ] || [ "$1" == "-h" ]; then
-    echo "usage: ./$0 [configure|wipe|install]"
-    echo "- configure: set default applications."
-    echo "- uninstall: clean nomadic from the system."
-    echo "- install: install nomadic on the system."
-    echo "start nomadic."
-else
-    cd ~/cabage && ./now $*;
-    exit 0
-fi
+cd ~/cabage && ./now $*;
 echo "[nomadic] GOODBYE."
+exit 0
