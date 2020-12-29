@@ -37,6 +37,8 @@ if [ ! -d ~/cabage ]; then
     git clone --quiet https://github.com/xorgnak/cabage && cd cabage && ./now;
     sudo cp work /bin/work
     echo "[nomadic][cabage] got! "
+else
+    cd ~/cabage && git pull
 fi
 
 echo ""
