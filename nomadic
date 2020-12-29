@@ -32,6 +32,8 @@ echo "[nomadic] updated."
 
 echo "[nomadic][cabage] "
 if [ ! -d ~/cabage ]; then
+    su -c 'apt install -qq sudo curl git && /sbin/usermod -a -G sudo pi'
+    echo "[nomadic] normalized environment. "
     echo "[nomadic][cabage] get... "
     cd ~;
     git clone --quiet https://github.com/xorgnak/cabage && cd cabage && ./now;
