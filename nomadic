@@ -93,7 +93,7 @@ printf "[nomadic][media] "
 if [ ! -d ~/media ]; then
 	printf "get... "
 	cd ~;
-	sudo apt-get install -y vlc audacity jaaa siggen butt darkice darksnow autoradio musescore mpd mpdtoys mpc ncmpc ncmpcpp mumble mumble-server gtranscribe espeak-ng-espeak
+	sudo apt-get install -y vlc audacity jaaa siggen butt darkice darksnow autoradio musescore mpd mpdtoys mpc ncmpc ncmpcpp mumble mumble-server pitivi gtranscribe espeak-ng-espeak
 	mkdir ~/media
 	printf "got! "
 fi
