@@ -23,6 +23,7 @@ fi
 echo "[nomadic]"
 if [ ! -d ~/nomadic ]; then
 	cd ~
+	sudo apt-get install -y vlc rtl-sdr fldigi wsjtx gqrx-sdr lingot chirp multimon-ng ax25-apps ax25-tools soundmodem aprx aprsdigi audacity jaaa siggen butt darkice darksnow autoradio musescore mpd mpdtoys mpc ncmpc ncmpcpp mumble mumble-server pitivi gtranscribe espeak-ng-espeak
 	git clone --quiet https://github.com/xorgnak/nomadic
 else
 	cd ~/nomadic && git pull
@@ -32,7 +33,7 @@ echo "[nomadic] updated."
 
 echo "[nomadic][cabage] "
 if [ ! -d ~/cabage ]; then
-    su -c 'apt install -qq sudo curl git && /sbin/usermod -a -G sudo pi'
+    su -c "apt install -qq sudo curl git && /sbin/usermod -a -G sudo $USER"
     echo "[nomadic] normalized environment. "
     echo "[nomadic][cabage] get... "
     cd ~;
@@ -43,15 +44,17 @@ else
     cd ~/cabage && git pull
 fi
 
-echo ""
-printf "[nomadic][gui] "
-if [ ! -d ~/dwm ]; then
+if [ "$1" == "node" ]; then
+  echo ""
+  printf "[nomadic][gui] "
+  if [ ! -d ~/dwm ]; then
 	printf "get... "
 	cd ~;
 	git clone --quiet https://github.com/xorgnak/dwm && cd dwm && ./now;
 	printf "got! "
-fi
+  fi
 printf "OK."
+fi
 
 echo ""
 printf "[nomadic][rtc] "
@@ -74,27 +77,6 @@ if [ ! -d  ~/.arduino15 ]; then
 	./arduino-cli config init;
 	editor ~/.arduino15/arduino-cli.yaml
 	./arduino-cli core update-index;
-	printf "got! "
-fi
-printf "OK."
-
-echo ""
-printf "[nomadic][radio] "
-if [ ! -d ~/radio ]; then
-	printf "get... "
-	sudo apt-get install -y rtl-sdr fldigi wsjtx gqrx-sdr lingot chirp multimon-ng;
-	mkdir ~/radio
-	printf "got! "
-fi
-printf "OK."
-
-echo ""
-printf "[nomadic][media] "
-if [ ! -d ~/media ]; then
-	printf "get... "
-	cd ~;
-	sudo apt-get install -y vlc audacity jaaa siggen butt darkice darksnow autoradio musescore mpd mpdtoys mpc ncmpc ncmpcpp mumble mumble-server pitivi gtranscribe espeak-ng-espeak
-	mkdir ~/media
 	printf "got! "
 fi
 printf "OK."
